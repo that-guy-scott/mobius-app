@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --mobius-teal: #00aabf;
+    --mobius-dark-blue: #002e5d;
+    --mobius-light-blue: #007e90;
+}
+
+body {
+    background-color: var(--mobius-teal);
+    color: var(--mobius-dark-blue);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--mobius-light-blue);
+}
+
+a {
+    color: var(--mobius-teal);
+}
