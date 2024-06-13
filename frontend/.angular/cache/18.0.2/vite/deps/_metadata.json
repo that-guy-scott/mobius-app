@@ -1,0 +1,34 @@
+{
+  "hash": "485870be",
+  "configHash": "c449499f",
+  "lockfileHash": "832fce9a",
+  "browserHash": "5206c05d",
+  "optimized": {
+    "@angular/core": {
+      "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "e514e7c2",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "49099933",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "0616ef17",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-RKNCHEO4": {
+      "file": "chunk-RKNCHEO4.js"
+    },
+    "chunk-VI3LERPG": {
+      "file": "chunk-VI3LERPG.js"
+    }
+  }
+}
