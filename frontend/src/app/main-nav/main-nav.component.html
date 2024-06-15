@@ -1,0 +1,38 @@
+<!-- Main Menu -->
+<div class="mobius-navbar-top"></div>
+<nav class="mobius-navbar navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="assets/img/MOBIUS_Mark.jpg" height="40" alt="MOBIUS Logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <!-- Add a standard link -->
+<!--      <li class="nav-item"><a class="nav-link" href="/patron-import/institutions" >Patron Importer</a></li>-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="patron-import-menu-link" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          Patron Import
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="patron-import-menu-link">
+          <li><a class="dropdown-item" href="/patron-import/institutions">Institutions</a></li>
+<!--          <li><a class="dropdown-item" href="#">Dashboard</a></li>-->
+<!--          <li><a class="dropdown-item" href="#">Reports</a></li>-->
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="arl-menu-link" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          Automated Record Loads
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="arl-menu-link">
+          <li><a class="dropdown-item" href="#">Option 1</a></li>
+          <li><a class="dropdown-item" href="#">Option 2</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

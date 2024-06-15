@@ -1,0 +1,44 @@
+<a href="/patron-import/institutions" class="btn btn-sm btn-outline-dark pull-left"><i class="fa fa-arrow-left"></i></a>
+<div class="container mt-5" *ngIf="service.institution">
+
+  <h4><strong>{{ service.institution.name }}</strong></h4>
+  <table class="table table-bordered">
+    <tbody>
+    <tr>
+      <th scope="row">ID</th>
+      <td>{{ id }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Enabled</th>
+      <td>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault_{{service.institution.id}}" [(ngModel)]="service.institution.enabled"
+                 (ngModelChange)="service.toggleInstitution(service.institution)">
+          <label class="form-check-label" for="flexSwitchCheckDefault_{{service.institution.id}}"></label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Tenant</th>
+      <td>{{ service.institution.tenant }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Module</th>
+      <td>{{ service.institution.module }}</td>
+    </tr>
+    <tr>
+      <th scope="row">ESID</th>
+      <td>{{ service.institution.esid }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Email Success</th>
+      <td>{{ service.institution.emailsuccess }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Email Fail</th>
+      <td>{{ service.institution.emailfail }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,27 @@
+<h1 class="text-mobius-navy">MOBIUS:FOLIO Institutions</h1>
+<hr/>
+
+<!--create a table for the institutions json array -->
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Institution Name</th>
+        <th>Enabled</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let institution of service.getInstitutions(); let i = index">
+        <td>{{ i + 1 }}</td>
+        <td><a class="text-decoration-none" href="/patron-import/institution/{{institution.id}}">{{ institution.name }}</a></td>
+        <td>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault_{{institution.id}}" [(ngModel)]="institution.enabled" (ngModelChange)="service.toggleInstitution(institution)">
+                <label class="form-check-label" for="flexSwitchCheckDefault_{{institution.id}}"></label>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
