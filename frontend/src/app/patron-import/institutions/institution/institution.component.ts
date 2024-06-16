@@ -10,17 +10,20 @@ import {ActivatedRoute} from "@angular/router";
 export class InstitutionComponent implements OnInit {
 
   id: string | null;
+  institution: any;
 
   constructor(public service: PatronImportService, public route: ActivatedRoute) {
     this.id = this.route.snapshot.paramMap.get('id');
+  }
+
+  ngOnInit(): void {
     this.getInstitution();
   }
 
-  ngOnInit() {
-  }
-
   getInstitution() {
-    this.service.getInstitution(this.id);
+    this.service.getInstitution(this.id).subscribe((json) => {
+      this.institution = json;
+    });
   }
 
 }
