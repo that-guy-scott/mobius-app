@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {InstitutionsComponent} from "./patron-import/institutions/institutions.component";
 import {InstitutionComponent} from "./patron-import/institutions/institution/institution.component";
 import {PageNotFoundComponent} from "./error-pages/page-not-found/page-not-found.component";
+import {FailedJobsTableComponent} from "./patron-import/institutions/institution/failed-jobs-table/failed-jobs-table.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
     path: 'patron-import/institution',
     children: [
       {
-        path: ':id', component: InstitutionComponent
+        path: ':id', component: InstitutionComponent,
       }
     ]
   },

@@ -26,8 +26,8 @@ app.get('/api/patron-import/institutions', db.getInstitutions);
 app.get('/api/patron-import/institution/:id', db.getInstitutionById);
 app.post('/api/patron-import/institution/:id/toggle', db.toggleInstitution);
 app.get('/api/patron-import/institution/:id/patron-count', db.getPatronCountByInstitution);
-app.get('/api/patron-import/institution/:id/failed-patrons/jobs', db.getJobs);
 app.get('/api/patron-import/institution/:id/failed-patrons', db.getFailedUsersByInstitutionId);
+app.get('/api/patron-import/institution/:id/failed-patrons/jobs', db.getFailedPatronJobs);
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);

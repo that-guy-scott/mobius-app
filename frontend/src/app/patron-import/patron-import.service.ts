@@ -31,7 +31,8 @@ export class PatronImportService {
   toggleInstitution(institution: any) {
     this.http.post(`${this.rootPath}/institution/${institution.id}/toggle`, {
       enabled: institution.enabled
-    }).subscribe((json) => {});
+    }).subscribe((json) => {
+    });
   }
 
   getPatronsByInstitutionId(id: string | null) {
@@ -40,6 +41,10 @@ export class PatronImportService {
 
   getFailedPatronsByInstitutionId(id: number | null) {
     return this.http.get(`${this.rootPath}/institution/${id}/failed-patrons`);
+  }
+
+  getFailedPatronJobsByInstitutionId(id: number | null) {
+    return this.http.get(`${this.rootPath}/institution/${id}/failed-patrons/jobs`);
   }
 
 }

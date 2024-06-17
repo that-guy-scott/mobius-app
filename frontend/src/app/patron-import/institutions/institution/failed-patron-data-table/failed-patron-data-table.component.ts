@@ -21,7 +21,7 @@ export class FailedPatronDataTableComponent implements OnInit {
   }
 
   getFailedPatrons() {
-    this.failedPatrons = this.service.getFailedPatronsByInstitutionId(this.id).subscribe((json) => {
+    this.service.getFailedPatronsByInstitutionId(this.id).subscribe((json) => {
       this.failedPatrons = json;
     });
   }

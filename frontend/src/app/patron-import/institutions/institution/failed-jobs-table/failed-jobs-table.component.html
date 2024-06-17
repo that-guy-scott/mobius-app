@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Job #</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">Stop Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let job of failedJobs; index as i">
+      <td><a href="">{{job.job_id}}</a></td>
+      <td>{{job.start_time}}</td>
+      <td>{{job.stop_time}}</td>
+    </tr>
+  </tbody>
+</table>

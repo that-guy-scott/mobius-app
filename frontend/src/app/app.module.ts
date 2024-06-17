@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PatronLoadChartComponent } from './patron-import/institutions/institution/patron-load-chart/patron-load-chart.component';
 import { FailedPatronDataTableComponent } from './patron-import/institutions/institution/failed-patron-data-table/failed-patron-data-table.component';
 import {PtypePatronGroupsComponent} from "./patron-import/institutions/institution/ptype-patron-groups/ptype-patron-groups.component";
+import {FailedJobsTableComponent} from "./patron-import/institutions/institution/failed-jobs-table/failed-jobs-table.component";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import {PtypePatronGroupsComponent} from "./patron-import/institutions/instituti
     PatronLoadChartComponent,
     FailedPatronDataTableComponent,
     PtypePatronGroupsComponent,
+    FailedJobsTableComponent,
+    FailedJobsTableComponent,
   ],
   imports: [
     BrowserModule,
