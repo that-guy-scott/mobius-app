@@ -9,11 +9,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class InstitutionComponent implements OnInit {
 
-  id: string | null;
+  id: number | null;
   institution: any;
 
   constructor(public service: PatronImportService, public route: ActivatedRoute) {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
@@ -25,5 +25,6 @@ export class InstitutionComponent implements OnInit {
       this.institution = json;
     });
   }
+
 
 }

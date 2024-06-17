@@ -1,0 +1,6 @@
+### Institutions 
+GET http://localhost:10000/api/patron-import/institutions
+
+### Failed Patrons
+GET http://localhost:10000/api/patron-import/institution/4/failed-patrons 
+

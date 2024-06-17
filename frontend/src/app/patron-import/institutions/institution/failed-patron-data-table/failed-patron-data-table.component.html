@@ -1,0 +1,20 @@
+<table class="table table-bordered" *ngIf="failedPatrons">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Job</th>
+    <th scope="col">Username</th>
+    <th scope="col">External System ID</th>
+    <th scope="col">Error Message</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let patron of failedPatrons">
+    <td>{{ patron.id }}</td>
+    <td>{{ patron.job_id}}</td>
+    <td>{{ patron.username }}</td>
+    <td>{{ patron.externalsystemid }}</td>
+    <td>{{ patron.errormessage }}</td>
+  </tr>
+  </tbody>
+</table>

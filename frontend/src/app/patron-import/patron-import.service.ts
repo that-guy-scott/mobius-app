@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AppServiceService} from "../app-service.service";
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,7 @@ export class PatronImportService {
     return this._institutions;
   }
 
-  getInstitution(id: string | null) {
+  getInstitution(id: number | null) {
     return this.http.get(`${this.rootPath}/institution/${id}`);
   }
 
@@ -35,9 +34,12 @@ export class PatronImportService {
     }).subscribe((json) => {});
   }
 
-  getPatronsByInstitutionId(id: number) {
-    this.http.get(`${this.rootPath}/institution/${id}/patrons`).subscribe((json) => {
-      return json;
-    });
+  getPatronsByInstitutionId(id: string | null) {
+    return this.http.get(`${this.rootPath}/institution/${id}/patrons`);
   }
+
+  getFailedPatronsByInstitutionId(id: number | null) {
+    return this.http.get(`${this.rootPath}/institution/${id}/failed-patrons`);
+  }
+
 }

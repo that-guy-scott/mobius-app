@@ -11,7 +11,8 @@ import { InstitutionComponent } from './patron-import/institutions/institution/i
 import { PageNotFoundComponent } from './error-pages/page-not-found/page-not-found.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PatronLoadChartComponent } from './patron-import/institutions/institution/patron-load-chart/patron-load-chart.component';
-import { PatronDataTableComponent } from './patron-import/institutions/institution/patron-data-table/patron-data-table.component';
+import { FailedPatronDataTableComponent } from './patron-import/institutions/institution/failed-patron-data-table/failed-patron-data-table.component';
+import {PtypePatronGroupsComponent} from "./patron-import/institutions/institution/ptype-patron-groups/ptype-patron-groups.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PatronDataTableComponent } from './patron-import/institutions/instituti
     InstitutionComponent,
     PageNotFoundComponent,
     PatronLoadChartComponent,
-    PatronDataTableComponent,
+    FailedPatronDataTableComponent,
+    PtypePatronGroupsComponent,
   ],
   imports: [
     BrowserModule,
