@@ -45,3 +45,4 @@ Thumbs.db
 patron_import.sql
 frontend/node_modules/*
 server/node_modules/*
+frontend/.angular/*
