@@ -12,26 +12,11 @@ export class InstitutionComponent implements OnInit {
   id: number | null;
   institution: any;
 
-
-  // https://stackoverflow.com/questions/54110187/angular-6-routing-query-parameters-inside-named-secondary-router-outlet
-  // const routes:Routes = [
-  //   { path: '/:id', component: ProfileComponent, name: 'Details'}
-  // ]
-  // To get parameter in your component
-  //
-  // class ProfileComponent{
-  // token: string;
-  // constructor(params: RouteParams) {
-  //   this.token = params.get('id');
-  // }
-// }
-
-
-
-
+  private _activeTabPane: string = 'jobs';
 
   constructor(public service: PatronImportService, public route: ActivatedRoute) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.service.currentInstitutionId = this.id;
   }
 
   ngOnInit(): void {
@@ -44,5 +29,12 @@ export class InstitutionComponent implements OnInit {
     });
   }
 
+  get activeTabPane(): string {
+    return this._activeTabPane;
+  }
+
+  set activeTabPane(value: string) {
+    this._activeTabPane = value;
+  }
 
 }

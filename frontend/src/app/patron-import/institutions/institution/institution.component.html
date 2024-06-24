@@ -1,89 +1,96 @@
-<a href="/patron-import/institutions" class="btn btn-sm btn-outline-dark pull-left"><i class="fa fa-arrow-left"></i></a>
-<div class="container mt-5" *ngIf="institution">
+<div class="row">
+  <div class="col-12">
 
-  <h4><strong>{{ institution.name }}</strong></h4>
+    <a href="/patron-import/institutions" class="btn btn-sm btn-outline-dark pull-left"><i class="fa fa-arrow-left"></i></a>
+    <div class="container mt-5" *ngIf="institution">
 
-  <div class="row">
+      <h4><strong>{{ institution.name }}</strong></h4>
 
-    <div class="col-8">
+      <div class="row">
 
+        <div class="col-12">
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <th scope="row">ID</th>
+              <td>{{ id }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Enabled</th>
+              <td>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault_{{institution.id}}"
+                         [(ngModel)]="institution.enabled"
+                         (ngModelChange)="service.toggleInstitution(institution)">
+                  <label class="form-check-label" for="flexSwitchCheckDefault_{{institution.id}}"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Tenant</th>
+              <td>{{ institution.tenant }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Module</th>
+              <td>{{ institution.module }}</td>
+            </tr>
+            <tr>
+              <th scope="row">ESID</th>
+              <td>{{ institution.esid }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email Success</th>
+              <td>{{ institution.emailsuccess }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email Fail</th>
+              <td>{{ institution.emailfail }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
-    </div>
+      </div>
 
-    <div class="col-4">
-      <table class="table table-bordered">
-        <tbody>
-        <tr>
-          <th scope="row">ID</th>
-          <td>{{ id }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Enabled</th>
-          <td>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault_{{institution.id}}" [(ngModel)]="institution.enabled"
-                     (ngModelChange)="service.toggleInstitution(institution)">
-              <label class="form-check-label" for="flexSwitchCheckDefault_{{institution.id}}"></label>
+      <!-- TABS -->
+      <div class="row">
+        <div class="col-12">
+
+          <div class="container mt-5">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+              <li class="nav-item" role="presentation">
+                <a class="nav-link {{ activeTabPane == 'jobs' ? 'active' : ''}}" data-bs-toggle="tab"
+                   (click)="activeTabPane='jobs'"
+                   routerLink="/patron-import/institution/{{institution.id}}/jobs"
+                   data-bs-target="#institution-tab-pane" type="button" role="tab" aria-controls="failed-patrons"
+                   aria-selected="true">Failed Patrons</a>
+              </li>
+
+              <li class="nav-item" role="presentation">
+                <a class="nav-link {{ activeTabPane == 'patron-groups' ? 'active' : ''}}" data-bs-toggle="tab"
+                   (click)="activeTabPane='patron-groups'"
+                   routerLink="/patron-import/institution/{{institution.id}}/patron-groups"
+                   data-bs-target="#institution-tab-pane" type="button" role="tab" aria-controls="failed-patrons"
+                   aria-selected="true">Patron Groups</a>
+              </li>
+
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+
+              <div class="tab-pane fade show active" id="institution-tab-pane" role="tabpanel"
+                   aria-labelledby="institution-tab-pane">
+                <router-outlet></router-outlet>
+              </div>
+
             </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Tenant</th>
-          <td>{{ institution.tenant }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Module</th>
-          <td>{{ institution.module }}</td>
-        </tr>
-        <tr>
-          <th scope="row">ESID</th>
-          <td>{{ institution.esid }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Email Success</th>
-          <td>{{ institution.emailsuccess }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Email Fail</th>
-          <td>{{ institution.emailfail }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
 
-  </div>
-
-  <!-- patron data -->
-  <div class="row">
-    <div class="col-12">
-
-      <div class="container mt-5">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="failed-patrons-tab" data-bs-toggle="tab" data-bs-target="#failed-patrons" type="button" role="tab" aria-controls="failed-patrons" aria-selected="true">Failed Patrons</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="patron-groups-tab" data-bs-toggle="tab" data-bs-target="#patron-groups" type="button" role="tab" aria-controls="patron-groups" aria-selected="false">Patron Groups</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-
-          <div class="tab-pane fade show active" id="failed-patrons" role="tabpanel" aria-labelledby="failed-patrons-tab">
-            <app-failed-jobs-table [id]="institution.id"></app-failed-jobs-table>
-<!--            <router-outlet></router-outlet>-->
           </div>
-
-          <div class="tab-pane fade" id="patron-groups" role="tabpanel" aria-labelledby="patron-groups-tab">
-            <h3 class="mt-3">Patron Groups</h3>
-            <app-ptype-patron-groups></app-ptype-patron-groups>
-          </div>
-
 
         </div>
       </div>
 
-
     </div>
   </div>
-
 </div>

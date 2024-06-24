@@ -2,12 +2,29 @@
   --mobius-teal: #00A0A6;
   --mobius-navy: #001A4D;
   --mobius-light-teal: #4AC4C9;
+
+  --primary-color: #00a5a8; /* Teal from the logo */
+  --secondary-color: #0b2242; /* Dark blue from the logo */
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --gray-color: #6c757d;
+  --table-bg: #ffffff; /* White background for tables */
+  --table-border-color: #e0e0e0; /* Light gray border color */
+  --table-hover-bg: #f9f9f9; /* Light hover background */
+  --table-header-bg: #f1f1f1; /* Light gray background for headers */
 }
 
 body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 .bg-mobius-teal {
@@ -93,6 +110,191 @@ body {
   border-color: var(--mobius-navy);
 }
 
+/* Primary button */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: darken(var(--primary-color), 10%);
+  border-color: darken(var(--primary-color), 10%);
+  color: var(--white-color);
+}
+
+/* Secondary button */
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+  background-color: darken(var(--secondary-color), 10%);
+  border-color: darken(var(--secondary-color), 10%);
+  color: var(--white-color);
+}
+
+/* Success button */
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: var(--white-color);
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active {
+  background-color: darken(var(--success-color), 10%);
+  border-color: darken(var(--success-color), 10%);
+  color: var(--white-color);
+}
+
+/* Danger button */
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: var(--white-color);
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+  background-color: darken(var(--danger-color), 10%);
+  border-color: darken(var(--danger-color), 10%);
+  color: var(--white-color);
+}
+
+/* Warning button */
+.btn-warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+  color: var(--black-color);
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+  background-color: darken(var(--warning-color), 10%);
+  border-color: darken(var(--warning-color), 10%);
+  color: var(--black-color);
+}
+
+/* Info button */
+.btn-info {
+  background-color: var(--info-color);
+  border-color: var(--info-color);
+  color: var(--white-color);
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active {
+  background-color: darken(var(--info-color), 10%);
+  border-color: darken(var(--info-color), 10%);
+  color: var(--white-color);
+}
+
+/* Light button */
+.btn-light {
+  background-color: var(--light-color);
+  border-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.btn-light:hover, .btn-light:focus, .btn-light:active {
+  background-color: darken(var(--light-color), 10%);
+  border-color: darken(var(--light-color), 10%);
+  color: var(--dark-color);
+}
+
+/* Dark button */
+.btn-dark {
+  background-color: var(--dark-color);
+  border-color: var(--dark-color);
+  color: var(--white-color);
+}
+
+.btn-dark:hover, .btn-dark:focus, .btn-dark:active {
+  background-color: darken(var(--dark-color), 10%);
+  border-color: darken(var(--dark-color), 10%);
+  color: var(--white-color);
+}
+
+/* Outline buttons */
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.btn-outline-secondary {
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-outline-secondary:hover, .btn-outline-secondary:focus, .btn-outline-secondary:active {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+.btn-outline-success {
+  color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn-outline-success:hover, .btn-outline-success:focus, .btn-outline-success:active {
+  background-color: var(--success-color);
+  color: var(--white-color);
+}
+
+.btn-outline-danger {
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.btn-outline-danger:hover, .btn-outline-danger:focus, .btn-outline-danger:active {
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}
+
+.btn-outline-warning {
+  color: var(--warning-color);
+  border-color: var(--warning-color);
+}
+
+.btn-outline-warning:hover, .btn-outline-warning:focus, .btn-outline-warning:active {
+  background-color: var(--warning-color);
+  color: var(--black-color);
+}
+
+.btn-outline-info {
+  color: var(--info-color);
+  border-color: var(--info-color);
+}
+
+.btn-outline-info:hover, .btn-outline-info:focus, .btn-outline-info:active {
+  background-color: var(--info-color);
+  color: var(--white-color);
+}
+
+.btn-outline-light {
+  color: var(--light-color);
+  border-color: var(--light-color);
+}
+
+.btn-outline-light:hover, .btn-outline-light:focus, .btn-outline-light:active {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.btn-outline-dark {
+  color: var(--dark-color);
+  border-color: var(--dark-color);
+}
+
+.btn-outline-dark:hover, .btn-outline-dark:focus, .btn-outline-dark:active {
+  background-color: var(--dark-color);
+  color: var(--white-color);
+}
+
 .table th, .table td {
   color: var(--mobius-navy);
 }
@@ -139,3 +341,130 @@ footer a:hover {
   background-color: var(--mobius-teal);
   border-color: var(--mobius-teal);
 }
+
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--dark-color);
+  background-color: var(--table-bg);
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border: 1px solid var(--table-border-color);
+}
+
+.table thead th {
+  vertical-align: bottom;
+  background-color: var(--table-header-bg);
+  color: var(--dark-color);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.table tbody tr:hover {
+  background-color: var(--table-hover-bg);
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--table-hover-bg);
+  transition: background-color 0.3s;
+}
+
+.table-bordered {
+  border: 1px solid var(--table-border-color);
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid var(--table-border-color);
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+  border: 0;
+}
+
+.table-sm th,
+.table-sm td {
+  padding: 0.3rem;
+}
+
+/* Add rounded corners to the table */
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--table-border-color);
+}
+
+/* Add subtle shadow to table headers */
+.table thead th {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Modern hover effect */
+.table-hover tbody tr:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Specific styling for spreadsheet-like look */
+.spreadsheet-table {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.spreadsheet-table thead th {
+  border-bottom: 2px solid var(--table-border-color);
+}
+
+.spreadsheet-table tbody tr {
+  border-bottom: 1px solid var(--table-border-color);
+}
+
+.spreadsheet-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.spreadsheet-table tbody tr:hover {
+  background-color: var(--table-hover-bg);
+}
+
+.spreadsheet-table th,
+.spreadsheet-table td {
+  padding: 0.5rem;
+  border-right: 1px solid var(--table-border-color);
+}
+
+.spreadsheet-table th:last-child,
+.spreadsheet-table td:last-child {
+  border-right: none;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+

@@ -9,15 +9,17 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class FailedJobsTableComponent implements OnInit {
 
-  @Input()
   id: number = 0;
 
   failedJobs: any;
+  institutionName: string = "";
 
   constructor(public service: PatronImportService) {
+    this.id = this.service.currentInstitutionId;
   }
 
   ngOnInit() {
+
     this.service.getFailedPatronJobsByInstitutionId(this.id).subscribe((json) => {
       this.failedJobs = json;
     });

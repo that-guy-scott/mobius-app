@@ -14,18 +14,21 @@ import { PatronLoadChartComponent } from './patron-import/institutions/instituti
 import { FailedPatronDataTableComponent } from './patron-import/institutions/institution/failed-patron-data-table/failed-patron-data-table.component';
 import {PtypePatronGroupsComponent} from "./patron-import/institutions/institution/ptype-patron-groups/ptype-patron-groups.component";
 import {FailedJobsTableComponent} from "./patron-import/institutions/institution/failed-jobs-table/failed-jobs-table.component";
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    InstitutionComponent,
-    PageNotFoundComponent,
-    PatronLoadChartComponent,
-    FailedPatronDataTableComponent,
-    PtypePatronGroupsComponent,
-    FailedJobsTableComponent,
-    FailedJobsTableComponent,
-  ],
+    declarations: [
+        AppComponent,
+        InstitutionComponent,
+        PageNotFoundComponent,
+        PatronLoadChartComponent,
+        FailedPatronDataTableComponent,
+        PtypePatronGroupsComponent,
+        FailedJobsTableComponent,
+        FailedJobsTableComponent,
+        ProgressBarComponent,
+        ProgressBarComponent,
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

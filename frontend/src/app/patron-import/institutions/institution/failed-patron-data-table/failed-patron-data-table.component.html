@@ -1,20 +1,88 @@
-<table class="table table-bordered" *ngIf="failedPatrons">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Job</th>
-    <th scope="col">Username</th>
-    <th scope="col">External System ID</th>
-    <th scope="col">Error Message</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let patron of failedPatrons">
-    <td>{{ patron.id }}</td>
-    <td>{{ patron.job_id}}</td>
-    <td>{{ patron.username }}</td>
-    <td>{{ patron.externalsystemid }}</td>
-    <td>{{ patron.errormessage }}</td>
-  </tr>
-  </tbody>
-</table>
+<app-progress-bar *ngIf="!failedPatrons"></app-progress-bar>
+<div class="row" *ngIf="failedPatrons">
+  <div class="col-12">
+
+    <a href="/patron-import/institution/{{service.currentInstitutionId}}/jobs"
+       class="btn btn-sm btn-outline-dark m-2"><i class="fa fa-arrow-left"></i></a>
+
+    <a href="{{service.rootPath}}/institution/{{service.currentInstitutionId}}/job/{{job_id}}/failed-patrons/download"
+       target="_blank"
+       class="btn btn-sm btn-outline-dark m-2 pull-right"><i class="fa fa-cloud-download"></i> Download CSV</a>
+
+    <table class="table table-bordered table-hover spreadsheet-table" *ngIf="failedPatrons">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Job ID</th>
+        <th scope="col">Patron ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Barcode</th>
+        <th scope="col">Username</th>
+        <th scope="col">External System ID</th>
+        <th scope="col">Error Message</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let patron of failedPatrons; let index = index">
+        <td>{{ index + 1 }}</td>
+        <td>{{ patron.job_id }}</td>
+        <td>{{ patron.id }}</td>
+        <td>{{ patron.firstname }}</td>
+        <td>{{ patron.lastname }}</td>
+        <td>{{ patron.barcode }}</td>
+        <td><p class="not-a-tag" type="button" data-bs-toggle="modal" data-bs-target="#patronFolioCompareModal"
+               (click)="comparePatron(patron)">{{ patron.username }}</p></td>
+        <td>{{ patron.externalsystemid }}</td>
+        <td>{{ patron.errormessage }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Patron-Folio-Compare-Modal -->
+<div *ngIf="patron" class="modal fade" id="patronFolioCompareModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ patron.firstname }} {{ patron.lastname }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <div class="col">
+            <div class="container mt-5">
+              <table class="table table-bordered table-hover spreadsheet-table">
+                <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Field</th>
+                  <th scope="col">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let key of patronKeys">
+                  <td>{{ key }}</td>
+                  <td>{{ patron[key] }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col"></div>
+
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppServiceService {
 
-  constructor() { }
+  constructor() {
+  }
 
 
- submitJSON(url: string, json: any) {
+  submitJSON(url: string, json: any) {
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -18,6 +19,5 @@ export class AppServiceService {
       body: JSON.stringify(json)
     });
   }
-
 
 }

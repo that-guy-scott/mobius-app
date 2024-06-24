@@ -1,21 +1,17 @@
 ### GET request to example server
-GET http://localhost:3000
+GET http://localhost:10000
 
 ###
 
 ### POST request to example server
-POST http://localhost:3000/users
+POST http://localhost:10000/api/patron-import/institution/1/toggle
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "johndoe@gmail.com"
+  "enabled": true
 }
 
 ###
 
-### GET users
-GET http://localhost:3000/users
-
-###
-
+#app.get('/api/patron-import/institution/:id/job/:job_id/failed-patrons', db.getFailedUsersByInstitutionId);
+GET http://localhost:10000/api/patron-import/institution/14/job/68/failed-patrons

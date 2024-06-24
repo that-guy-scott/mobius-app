@@ -1,16 +1,19 @@
-<table class="table">
+<table class="table table-bordered table-hover spreadsheet-table">
   <thead>
-    <tr>
-      <th scope="col">Job #</th>
-      <th scope="col">Start Time</th>
-      <th scope="col">Stop Time</th>
-    </tr>
+  <tr>
+    <th scope="col">Job #</th>
+    <th scope="col">Start Time</th>
+    <th scope="col">Stop Time</th>
+  </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let job of failedJobs; index as i">
-      <td><a href="">{{job.job_id}}</a></td>
-      <td>{{job.start_time}}</td>
-      <td>{{job.stop_time}}</td>
-    </tr>
+  <tr *ngFor="let job of failedJobs; index as i">
+<!--    <td class="text-right">-->
+      <td class="text-right">
+      <a href="patron-import/institution/{{service.currentInstitutionId}}/job/{{job.job_id}}/failed-patrons">{{ job.job_id }}</a>
+    </td>
+    <td class="text-center">{{ job.start_time | date:'medium' }}</td>
+    <td class="text-center">{{ job.stop_time | date:'medium' }}</td>
+  </tr>
   </tbody>
 </table>
