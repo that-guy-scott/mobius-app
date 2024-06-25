@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+          <p>Total Patrons: <strong>{{ metrics.totalPatrons }}</strong></p>
+          <p *ngIf="metrics.lastImportDate">Last Import Date:
+            <strong>{{ metrics.lastImportDate | date:'medium' }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="metrics.last5importTotals">
+    <div class="col-md-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2>Last 5 Import Totals</h2>
+            <table class="table table-bordered table-hover spreadsheet-table">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Time</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Failed</th>
+              <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let importTotal of metrics.last5importTotals">
+              <td>{{ importTotal.id }}</td>
+              <td>{{ importTotal.stop_time | date:'medium' }}</td>
+              <td>{{ importTotal.created }}</td>
+              <td>{{ importTotal.updated }}</td>
+              <td>{{ importTotal.failed }}</td>
+              <td>{{ importTotal.total }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

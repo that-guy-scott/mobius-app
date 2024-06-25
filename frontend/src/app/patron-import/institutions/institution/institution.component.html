@@ -1,96 +1,105 @@
-<div class="row">
-  <div class="col-12">
+<a href="/patron-import/institutions" class="btn btn-sm btn-outline-dark pull-left"><i class="fa fa-arrow-left"></i></a>
+<div class="container-fluid mt-5" *ngIf="institution">
 
-    <a href="/patron-import/institutions" class="btn btn-sm btn-outline-dark pull-left"><i class="fa fa-arrow-left"></i></a>
-    <div class="container mt-5" *ngIf="institution">
+  <h4><strong>{{ institution.name }}</strong></h4>
 
-      <h4><strong>{{ institution.name }}</strong></h4>
+  <div class="row">
 
-      <div class="row">
-
-        <div class="col-12">
-          <table class="table table-bordered">
-            <tbody>
-            <tr>
-              <th scope="row">ID</th>
-              <td>{{ id }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Enabled</th>
-              <td>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault_{{institution.id}}"
-                         [(ngModel)]="institution.enabled"
-                         (ngModelChange)="service.toggleInstitution(institution)">
-                  <label class="form-check-label" for="flexSwitchCheckDefault_{{institution.id}}"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Tenant</th>
-              <td>{{ institution.tenant }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Module</th>
-              <td>{{ institution.module }}</td>
-            </tr>
-            <tr>
-              <th scope="row">ESID</th>
-              <td>{{ institution.esid }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Email Success</th>
-              <td>{{ institution.emailsuccess }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Email Fail</th>
-              <td>{{ institution.emailfail }}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-
-      <!-- TABS -->
-      <div class="row">
-        <div class="col-12">
-
-          <div class="container mt-5">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-
-              <li class="nav-item" role="presentation">
-                <a class="nav-link {{ activeTabPane == 'jobs' ? 'active' : ''}}" data-bs-toggle="tab"
-                   (click)="activeTabPane='jobs'"
-                   routerLink="/patron-import/institution/{{institution.id}}/jobs"
-                   data-bs-target="#institution-tab-pane" type="button" role="tab" aria-controls="failed-patrons"
-                   aria-selected="true">Failed Patrons</a>
-              </li>
-
-              <li class="nav-item" role="presentation">
-                <a class="nav-link {{ activeTabPane == 'patron-groups' ? 'active' : ''}}" data-bs-toggle="tab"
-                   (click)="activeTabPane='patron-groups'"
-                   routerLink="/patron-import/institution/{{institution.id}}/patron-groups"
-                   data-bs-target="#institution-tab-pane" type="button" role="tab" aria-controls="failed-patrons"
-                   aria-selected="true">Patron Groups</a>
-              </li>
-
-            </ul>
-
-            <div class="tab-content" id="myTabContent">
-
-              <div class="tab-pane fade show active" id="institution-tab-pane" role="tabpanel"
-                   aria-labelledby="institution-tab-pane">
-                <router-outlet></router-outlet>
-              </div>
-
+    <div class="col-12">
+      <table class="table table-bordered">
+        <tbody>
+        <tr>
+          <th scope="row">ID</th>
+          <td>{{ id }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Enabled</th>
+          <td>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault_{{institution.id}}"
+                     [(ngModel)]="institution.enabled"
+                     (ngModelChange)="service.toggleInstitution(institution)">
+              <label class="form-check-label" for="flexSwitchCheckDefault_{{institution.id}}"></label>
             </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Tenant</th>
+          <td>{{ institution.tenant }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Module</th>
+          <td>{{ institution.module }}</td>
+        </tr>
+        <tr>
+          <th scope="row">ESID</th>
+          <td>{{ institution.esid }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Email Success</th>
+          <td>{{ institution.emailsuccess }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Email Fail</th>
+          <td>{{ institution.emailfail }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-          </div>
+  </div>
 
+  <!-- TABS -->
+  <div class="row">
+    <div class="col-12">
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab"
+             routerLinkActive="active"
+             routerLink="/patron-import/institution/{{institution.id}}/metrics"
+             data-bs-target="#institution-tab-pane" type="button" role="tab">Metrics</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab"
+             routerLinkActive="active"
+             routerLink="/patron-import/institution/{{institution.id}}/patrons"
+             data-bs-target="#institution-tab-pane" type="button" role="tab">Patrons</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab"
+             routerLinkActive="active"
+             routerLink="/patron-import/institution/{{institution.id}}/jobs"
+             data-bs-target="#institution-tab-pane" type="button" role="tab">Failed Patrons</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab"
+             routerLinkActive="active"
+             routerLink="/patron-import/institution/{{institution.id}}/file-patterns"
+             data-bs-target="#institution-tab-pane" type="button" role="tab">File Patterns</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab"
+             routerLinkActive="active"
+             routerLink="/patron-import/institution/{{institution.id}}/patron-groups"
+             data-bs-target="#institution-tab-pane" type="button" role="tab">Patron Groups</a>
+        </li>
+
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="institution-tab-pane" role="tabpanel"
+             aria-labelledby="institution-tab-pane">
+          <router-outlet></router-outlet>
         </div>
       </div>
 
     </div>
   </div>
+
 </div>

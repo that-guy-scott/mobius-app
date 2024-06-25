@@ -1,1 +1,112 @@
-<p>Coming soon...</p>
+<button type="button" class="btn btn-sm btn-outline-primary pull-right mt-2" data-bs-toggle="modal"
+        data-bs-target="#patronGroupModal">
+  <i class="fa fa-plus"></i> Add Patron Group
+</button>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">PType</th>
+    <th scope="col">Folio Group</th>
+    <th scope="col">Action</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of patronGroups">
+    <td>{{ item.ptype }}</td>
+    <td>{{ item.foliogroup }}</td>
+    <td>
+      <div class="form-group">
+
+        <button type="button" class="btn btn-sm btn-outline-info" (click)="editPatronGroup(item)"
+                data-bs-toggle="modal"
+                data-bs-target="#editPatronGroupModal"><i class="fa fa-edit"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="deletePatronGroup(item)" data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteModal"><i
+          class="fa fa-trash"></i></button>
+
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Create new patron group Modal -->
+<div class="modal fade" id="patronGroupModal" tabindex="-1" aria-labelledby="patronGroupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="patronGroupModalLabel">Add Patron Group</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="patronGroupForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="institution_id" class="form-label">Institution ID</label>
+            <input type="text" class="form-control" id="institution_id" formControlName="institution_id">
+          </div>
+          <div class="mb-3">
+            <label for="ptype" class="form-label">PType</label>
+            <input type="text" class="form-control" id="ptype" formControlName="ptype">
+          </div>
+          <div class="mb-3">
+            <label for="foliogroup" class="form-label">Folio Group</label>
+            <input type="text" class="form-control" id="foliogroup" formControlName="foliogroup">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit patron group modal -->
+<div class="modal fade" id="editPatronGroupModal" tabindex="-1" aria-labelledby="editPatronGroupModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPatronGroupModalLabel">Edit Patron Group</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="patronGroupForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="ptype" class="form-label">PType</label>
+            <input type="text" class="form-control" id="ptype" formControlName="ptype">
+          </div>
+          <div class="mb-3">
+            <label for="foliogroup" class="form-label">Folio Group</label>
+            <input type="text" class="form-control" id="foliogroup" formControlName="foliogroup">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- confirm delete modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body
+      ">
+        Are you sure you want to delete this patron group?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<!--        <button type="button" class="btn btn-danger" (click)="deletePatronGroupConfirmed()">Delete</button>-->
+        <button type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

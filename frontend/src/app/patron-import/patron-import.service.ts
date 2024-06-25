@@ -8,8 +8,8 @@ import {AppServiceService} from "../app-service.service";
 export class PatronImportService {
 
   private _institutions: any;
-  // rootPath: string = 'http://localhost:10000/api/patron-import';
-  rootPath: string = 'http://192.168.11.203:10000/api/patron-import';
+  rootPath: string = 'http://localhost:10000/api/patron-import';
+  // rootPath: string = 'http://192.168.11.211:10000/api/patron-import';
 
   currentInstitutionId: number = 0;
   currentJobId: number = 0;
@@ -32,13 +32,13 @@ export class PatronImportService {
   }
 
   toggleInstitution(institution: any) {
-    this.http.post(`${this.rootPath}/institution/${institution.id}/toggle`, {
+    this.http.post(`${this.rootPath}/institution/${institution.id}/enable`, {
       enabled: institution.enabled
     }).subscribe((json) => {
     });
   }
 
-  getPatronsByInstitutionId(id: string | null) {
+  getPatronsByInstitutionId(id: number | null) {
     return this.http.get(`${this.rootPath}/institution/${id}/patrons`);
   }
 
@@ -65,6 +65,18 @@ export class PatronImportService {
 
   getFolioPatronByUsername(username: string) {
     return this.http.get(`${this.rootPath}/folio/patron/by-username/${username}`);
+  }
+
+  getFilePatternsByInstitutionId(id: number) {
+    return this.http.get(`${this.rootPath}/institution/${id}/file-patterns`);
+  }
+
+  getInstitutionMetricsByInstitutionId(id: number) {
+    return this.http.get(`${this.rootPath}/institution/${id}/metrics`);
+  }
+
+  getPatronGroupsByInstitutionId(id: number) {
+    return this.http.get(`${this.rootPath}/institution/${id}/patron-groups`);
   }
 
 }

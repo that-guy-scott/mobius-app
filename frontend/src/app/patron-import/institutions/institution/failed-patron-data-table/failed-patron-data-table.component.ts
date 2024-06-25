@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PatronImportService} from "../../../patron-import.service";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
+import {ProgressService} from "../../../../progress-bar/progress.service";
 
 @Component({
   selector: 'app-failed-patron-data-table',
@@ -88,18 +89,26 @@ export class FailedPatronDataTableComponent implements OnInit {
     },
     "customFields": {}
   }];
-
+  progress = 0;
 
   patronKeys: string[];
 
-  constructor(public service: PatronImportService, public route: ActivatedRoute) {
+  constructor(public service: PatronImportService, public route: ActivatedRoute, private progressService: ProgressService) {
     this.id = this.service.currentInstitutionId;
     this.job_id = Number(this.route.snapshot.paramMap.get('job_id'));
     this.patronKeys = Object.keys(this.patron);
   }
 
   ngOnInit(): void {
-    this.getFailedPatrons();
+
+    this.progressService.progress$.subscribe((progress) => {
+      this.progress = progress;
+    });
+
+    this.service.getFailedPatronsByInstitutionId(this.id, this.job_id).subscribe((json) => {
+      this.failedPatrons = json;
+    });
+
   }
 
   testPatron(): void {
@@ -131,14 +140,6 @@ export class FailedPatronDataTableComponent implements OnInit {
       "phone": "555-5678",
       "preferredfirstname": "Johnny"
     };
-  }
-
-  getFailedPatrons() {
-
-    this.service.getFailedPatronsByInstitutionId(this.id, this.job_id).subscribe((json) => {
-      this.failedPatrons = json;
-    });
-
   }
 
   comparePatron(patron: any) {

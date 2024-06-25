@@ -1,4 +1,4 @@
-<app-progress-bar *ngIf="!failedPatrons"></app-progress-bar>
+<app-progress-bar [progress]="progress" *ngIf="!failedPatrons"></app-progress-bar>
 <div class="row" *ngIf="failedPatrons">
   <div class="col-12">
 

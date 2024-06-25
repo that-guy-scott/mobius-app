@@ -1,0 +1,18 @@
+<!-- make a data table for filePatterns  -->
+<!--<table class="table table-striped">-->
+<table class="table table-bordered table-hover spreadsheet-table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Pattern</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let filePattern of filePatterns; let i = index">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ filePattern.name }}</td>
+    <td>{{ filePattern.pattern }}</td>
+  </tr>
+  </tbody>
+</table>

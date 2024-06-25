@@ -1,9 +1,9 @@
 const Pool = require('pg').Pool;
 const pool = new Pool({
-    user: 'postgres',
+    user: 'foliopatronimport',
     host: 'localhost',
-    database: 'postgres',
-    password: 'postgres',
+    database: 'foliopatronimport',
+    password: 'WNM6ymdkngzhv_dep',
     port: 5432,
 });
 
@@ -30,7 +30,7 @@ const getInstitutionById = (request, response) => {
 
 };
 
-const toggleInstitution = (request, response) => {
+const enableInstitution = (request, response) => {
     const id = parseInt(request.params.id);
     const {enabled} = request.body;
     pool.query(
@@ -49,9 +49,6 @@ const getFailedUsersByInstitutionIdAndJobId = (request, response) => {
 
     const id = parseInt(request.params.id);
     const job_id = parseInt(request.params.job_id);
-
-    console.log('id', id);
-    console.log('job_id', job_id);
 
     pool.query(`
         SELECT p.job_id,
@@ -83,9 +80,6 @@ const getFailedUsersByInstitutionIdAndJobIdDownloadCSV = (request, response) => 
 
     const id = parseInt(request.params.id);
     const job_id = parseInt(request.params.job_id);
-
-    console.log('id', id);
-    console.log('job_id', job_id);
 
     pool.query(`
         SELECT p.job_id,
@@ -171,6 +165,100 @@ const getPatronByUsername = (request, response) => {
 
 };
 
+const getPatronGroupsByInstitutionId = (request, response) => {
+    const id = parseInt(request.params.id);
+
+    pool.query(`
+        SELECT *
+        FROM patron_import.ptype_mapping pt
+        where pt.institution_id = $1
+    `, [id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows);
+    });
+
+};
+
+const getFilePatternsByInstitutionId = (request, response) => {
+    const id = parseInt(request.params.id);
+
+    pool.query(`
+        SELECT *
+        FROM patron_import.file f
+        where f.institution_id = $1
+    `, [id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows);
+    });
+
+};
+
+const getMetricsByInstitutionId = async (request, response) => {
+    try {
+        const id = parseInt(request.params.id);
+        const metrics = {};
+
+        // Query to get total patrons
+        const totalPatronsResult = await pool.query(`
+            SELECT count(p.id) as count
+            FROM patron_import.patron p
+            WHERE p.institution_id = $1
+        `, [id]);
+        metrics.totalPatrons = totalPatronsResult.rows[0].count;
+
+        // Query to get the last import date
+        const lastImportDateResult = await pool.query(`
+            SELECT MAX(j.stop_time) as last_stop_time
+            FROM patron_import.job j
+            JOIN patron_import.import_response ir ON j.id = ir.job_id
+            WHERE ir.institution_id = $1
+        `, [id]);
+        metrics.lastImportDate = lastImportDateResult.rows[0].last_stop_time;
+
+        // Query to get the last 5 import totals
+        const last5importTotalsResult = await pool.query(`
+            SELECT j.id, j.stop_time,
+                   sum(ir.created) as "created",
+                   sum(ir.updated) as "updated",
+                   sum(ir.failed)  as "failed",
+                   sum(ir.total)   as "total"
+            FROM patron_import.job j
+                     join patron_import.import_response ir on j.id = ir.job_id
+            where ir.institution_id = $1
+            group by ir.job_id, j.stop_time, j.id
+            order by ir.job_id desc
+            limit 5;
+        `, [id]);
+        metrics.last5importTotals = last5importTotalsResult.rows;
+
+        response.status(200).json(metrics);
+    } catch (error) {
+        console.error('Failed to fetch metrics:', error);
+        response.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+const getPatrons = (request, response) => {
+
+    const id = parseInt(request.params.id);
+
+    pool.query(`
+        SELECT *
+        FROM patron_import.patron p
+           LEFT JOIN patron_import.address a on p.id = a.patron_id 
+        where p.institution_id = $1
+        order by p.id`, [id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows);
+    });
+
+};
 
 const {exec} = require('child_process');
 const executeCommand = (command, response) => {
@@ -203,19 +291,20 @@ const pwd = (request, response) => {
     executeCommand(command, response);
 };
 
-
-
-
 module.exports = {
+    systemWhoAmI,
+    pwd,
     getInstitutions,
     getInstitutionById,
-    toggleInstitution,
+    enableInstitution,
     getFailedUsersByInstitutionIdAndJobId,
     getFailedUsersByInstitutionIdAndJobIdDownloadCSV,
     getPatronCountByInstitution,
     getFailedPatronJobs,
     getPatronByUsername,
     getFolioPatronByUsername,
-    systemWhoAmI,
-    pwd
+    getFilePatternsByInstitutionId,
+    getPatrons,
+    getMetricsByInstitutionId,
+    getPatronGroupsByInstitutionId
 };

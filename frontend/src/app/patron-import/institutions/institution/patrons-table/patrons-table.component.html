@@ -1,0 +1,63 @@
+<app-progress-bar [progress]="progress" *ngIf="!patrons"></app-progress-bar>
+<table datatable class="dataTable table table-bordered table-hover spreadsheet-table" *ngIf="patrons">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Institution Id</th>
+        <th>File Id</th>
+        <th>Job Id</th>
+        <th>Fingerprint</th>
+        <th>Ready</th>
+        <th>Raw Data</th>
+        <th>Insert Date</th>
+        <th>Update Date</th>
+        <th>Load Date</th>
+        <th>Username</th>
+        <th>External System Id</th>
+        <th>Barcode</th>
+        <th>Email</th>
+        <th>Active</th>
+        <th>Patron Group</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Preferred First Name</th>
+        <th>Phone</th>
+        <th>Mobile Phone</th>
+        <th>Date of Birth</th>
+        <th>Preferred Contact Type Id</th>
+        <th>Enrollment Date</th>
+        <th>Expiration Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of patrons">
+        <td>{{ item.id }}</td>
+        <td>{{ item.institution_id }}</td>
+        <td>{{ item.file_id }}</td>
+        <td>{{ item.job_id }}</td>
+        <td>{{ item.fingerprint }}</td>
+        <td>{{ item.ready }}</td>
+        <td>{{ item.raw_data }}</td>
+        <td>{{ item.insert_date | date:'medium' }}</td>
+        <td>{{ item.update_date | date:'medium' }}</td>
+        <td>{{ item.load_date | date:'medium' }}</td>
+        <td>{{ item.username }}</td>
+        <td>{{ item.externalsystemid }}</td>
+        <td>{{ item.barcode }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.active }}</td>
+        <td>{{ item.patrongroup }}</td>
+        <td>{{ item.lastname }}</td>
+        <td>{{ item.firstname }}</td>
+        <td>{{ item.middlename }}</td>
+        <td>{{ item.preferredfirstname }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.mobilephone }}</td>
+        <td>{{ item.dateofbirth }}</td>
+        <td>{{ item.preferredcontacttypeid }}</td>
+        <td>{{ item.enrollmentdate }}</td>
+        <td>{{ item.expirationdate }}</td>
+    </tr>
+    </tbody>
+</table>

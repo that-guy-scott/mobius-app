@@ -35,16 +35,22 @@ app.get('/', (request, response) => {
 
 app.get('/api/patron-import/institutions', patronImport.getInstitutions);
 app.get('/api/patron-import/institution/:id', patronImport.getInstitutionById);
-app.post('/api/patron-import/institution/:id/toggle', patronImport.toggleInstitution);
+app.post('/api/patron-import/institution/:id/enable', patronImport.enableInstitution);
+app.get('/api/patron-import/institution/:id/metrics', patronImport.getMetricsByInstitutionId);
 app.get('/api/patron-import/institution/:id/patron-count', patronImport.getPatronCountByInstitution);
+app.get('/api/patron-import/institution/:id/patrons', patronImport.getPatrons);
 app.get('/api/patron-import/institution/:id/job/:job_id/failed-patrons', patronImport.getFailedUsersByInstitutionIdAndJobId);
 app.get('/api/patron-import/institution/:id/job/:job_id/failed-patrons/download', patronImport.getFailedUsersByInstitutionIdAndJobIdDownloadCSV);
 app.get('/api/patron-import/institution/:id/jobs', patronImport.getFailedPatronJobs);
-app.get('/api/patron-import/institution/:id/jobs', patronImport.getFailedPatronJobs);
+app.get('/api/patron-import/institution/:id/file-patterns', patronImport.getFilePatternsByInstitutionId);
+app.get('/api/patron-import/institution/:id/patron-groups', patronImport.getPatronGroupsByInstitutionId);
 app.get('/api/patron/by-username/:username', patronImport.getPatronByUsername);
 app.get('/api/folio/patron/by-username/:username', patronImport.getFolioPatronByUsername);
+
+
 app.get('/api/system/whoami', patronImport.systemWhoAmI);
 app.get('/api/system/pwd', patronImport.pwd);
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);

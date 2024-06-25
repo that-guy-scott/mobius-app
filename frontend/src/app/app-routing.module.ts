@@ -12,6 +12,9 @@ import {
 import {
   PtypePatronGroupsComponent
 } from "./patron-import/institutions/institution/ptype-patron-groups/ptype-patron-groups.component";
+import {FilePatternsComponent} from "./patron-import/institutions/institution/file-patterns/file-patterns.component";
+import {PatronsTableComponent} from "./patron-import/institutions/institution/patrons-table/patrons-table.component";
+import {MetricsComponent} from "./patron-import/institutions/institution/metrics/metrics.component";
 
 const routes: Routes = [
   {
@@ -23,8 +26,12 @@ const routes: Routes = [
   {
     path: 'patron-import/institution/:id', component: InstitutionComponent,
     children: [
+      {path: 'metrics', component: MetricsComponent},
+      {path: 'metrics', component: MetricsComponent},
       {path: 'jobs', component: FailedJobsTableComponent},
       {path: 'job/:job_id/failed-patrons', component: FailedPatronDataTableComponent},
+      {path: 'patrons', component: PatronsTableComponent},
+      {path: 'file-patterns', component: FilePatternsComponent},
       {path: 'patron-groups', component: PtypePatronGroupsComponent}
     ]
   },
