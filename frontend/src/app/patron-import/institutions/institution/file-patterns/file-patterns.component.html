@@ -1,18 +1,39 @@
 <!-- make a data table for filePatterns  -->
-<!--<table class="table table-striped">-->
+<div class="form-group mt-3">
+
+  <!-- add bootstrap input -->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="button-addon2"
+           [(ngModel)]="newFilePattern.name">
+    <input type="text" class="form-control" placeholder="Pattern" aria-label="Pattern" aria-describedby="button-addon2"
+           [(ngModel)]="newFilePattern.pattern">
+    <button (click)="addFilePattern(service.currentInstitutionId)" class="btn btn-outline-primary" type="button"
+            id="button-addon2"><i
+      class="fa fa-plus"></i>
+    </button>
+  </div>
+
+
+</div>
 <table class="table table-bordered table-hover spreadsheet-table">
   <thead>
   <tr>
     <th scope="col">#</th>
+    <th scope="col">Path</th>
     <th scope="col">Name</th>
     <th scope="col">Pattern</th>
+    <th scope="col">Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let filePattern of filePatterns; let i = index">
     <th scope="row">{{ i + 1 }}</th>
+    <td>{{ filePattern.path }}</td>
     <td>{{ filePattern.name }}</td>
     <td>{{ filePattern.pattern }}</td>
+    <td class="actions">
+      <button (click)="deleteFilePattern(filePattern.id)" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button>
+    </td>
   </tr>
   </tbody>
 </table>

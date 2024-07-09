@@ -35,13 +35,18 @@
           <th scope="row">ESID</th>
           <td>{{ institution.esid }}</td>
         </tr>
-        <tr>
+        <tr class="p-0">
           <th scope="row">Email Success</th>
-          <td>{{ institution.emailsuccess }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Email Fail</th>
-          <td>{{ institution.emailfail }}</td>
+          <td>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" [(ngModel)]="institution.emailsuccess"
+                     placeholder="Recipient's Email" aria-label="Recipient's Email" aria-describedby="button-addon2">
+              <button
+                (click)="service.updateEmailSuccessByInstitutionId(service.currentInstitutionId, institution.emailsuccess )"
+                class="btn btn-outline-primary" type="button" id="button-addon2"><i class="fa fa-save"></i>
+              </button>
+            </div>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -81,6 +86,13 @@
              routerLinkActive="active"
              routerLink="/patron-import/institution/{{institution.id}}/file-patterns"
              data-bs-target="#institution-tab-pane" type="button" role="tab">File Patterns</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab"
+             routerLinkActive="active"
+             routerLink="/patron-import/institution/{{institution.id}}/file-tracker"
+             data-bs-target="#institution-tab-pane" type="button" role="tab">File Tracker</a>
         </li>
 
         <li class="nav-item" role="presentation">

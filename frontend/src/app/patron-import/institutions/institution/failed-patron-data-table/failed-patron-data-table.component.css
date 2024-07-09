@@ -1,6 +1,14 @@
 .not-a-tag {
-    color: #0a53be;
-    text-decoration: underline;
-    cursor: pointer;
+  color: #0a53be;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
+.right-divider {
+  border-right: 5px solid #5c636a;
+}
+
+
+td {
+  height: 55px !important;
+}

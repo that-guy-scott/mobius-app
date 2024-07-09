@@ -1,45 +1,43 @@
-<div class="container-fluid">
+<div class="container-fluid mt-4">
+
   <div class="row">
     <div class="col-md-12">
-      <div class="card mt-4 shadow-sm">
-        <div class="card-body">
-          <p>Total Patrons: <strong>{{ metrics.totalPatrons }}</strong></p>
-          <p *ngIf="metrics.lastImportDate">Last Import Date:
-            <strong>{{ metrics.lastImportDate | date:'medium' }}</strong></p>
-        </div>
-      </div>
+      <h6>Total Patrons: <span class="text-bold text-mobius-grey">{{ metrics.totalPatrons }}</span></h6>
+      <h6 *ngIf="metrics.lastImportDate">Last Import Date: <span
+        class="text-bold text-mobius-grey">{{ metrics.lastImportDate | date:'medium' }}</span></h6>
     </div>
   </div>
 
-  <div class="row" *ngIf="metrics.last5importTotals">
+  <div class="row mt-2" *ngIf="metrics.last5importTotals">
     <div class="col-md-12">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h2>Last 5 Import Totals</h2>
-            <table class="table table-bordered table-hover spreadsheet-table">
-            <thead>
-            <tr>
-              <th>ID</th>
-              <th>Time</th>
-              <th>Created</th>
-              <th>Updated</th>
-              <th>Failed</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let importTotal of metrics.last5importTotals">
-              <td>{{ importTotal.id }}</td>
-              <td>{{ importTotal.stop_time | date:'medium' }}</td>
-              <td>{{ importTotal.created }}</td>
-              <td>{{ importTotal.updated }}</td>
-              <td>{{ importTotal.failed }}</td>
-              <td>{{ importTotal.total }}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <h5 class="mb-0">Last 5 Import Totals</h5>
+      <table class="mt-0 table table-bordered table-hover spreadsheet-table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Time</th>
+          <th>Created</th>
+          <th>Updated</th>
+          <th>Failed</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let importTotal of metrics.last5importTotals">
+          <td>{{ importTotal.id }}</td>
+          <td>{{ importTotal.stop_time | date:'medium' }}</td>
+          <td>{{ importTotal.created }}</td>
+          <td>{{ importTotal.updated }}</td>
+          <td>
+            <a
+              routerLink="/patron-import/institution/{{service.currentInstitutionId}}/job/{{importTotal.id}}/failed-patrons">
+              {{ importTotal.failed }}
+            </a>
+          </td>
+          <td>{{ importTotal.total }}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

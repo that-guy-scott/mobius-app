@@ -13,7 +13,7 @@
   --dark-color: #343a40;
   --white-color: #ffffff;
   --black-color: #000000;
-  --gray-color: #6c757d;
+  --gray-color: #2d2d2d;
   --table-bg: #ffffff; /* White background for tables */
   --table-border-color: #e0e0e0; /* Light gray border color */
   --table-hover-bg: #f9f9f9; /* Light hover background */
@@ -24,7 +24,10 @@ body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+}
+
+main {
+  min-height: 80vh;
 }
 
 .bg-mobius-teal {
@@ -33,6 +36,21 @@ body {
 
 .bg-mobius-navy {
   background-color: var(--mobius-navy) !important;
+}
+
+.text-bg-mobius-navy {
+  background-color: var(--mobius-navy) !important;
+  color: white;
+}
+
+.text-bg-mobius-success {
+  background-color: var(--mobius-teal) !important;
+  color: white;
+}
+
+.text-bg-mobius-danger {
+  background-color: var(--danger-color) !important;
+  color: white;
 }
 
 .text-mobius-teal {
@@ -61,7 +79,8 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-  color: var(--mobius-teal) !important;
+  /*color: var(--mobius-teal) !important;*/
+  color: var(--mobius-navy) !important;
 }
 
 #navbarNavDropdown .nav-item {
@@ -85,28 +104,8 @@ body {
   border-color: var(--mobius-teal);
 }
 
-.btn-outline-primary {
-  color: var(--mobius-teal);
-  border-color: var(--mobius-teal);
-}
-
-.btn-primary:hover {
-  background-color: var(--mobius-light-teal);
-  border-color: var(--mobius-light-teal);
-}
-
 .btn-secondary {
   background-color: var(--mobius-navy);
-  border-color: var(--mobius-navy);
-}
-
-.btn-secondary:hover {
-  background-color: var(--mobius-light-teal);
-  border-color: var(--mobius-light-teal);
-}
-
-.btn-outline-secondary {
-  color: var(--mobius-navy);
   border-color: var(--mobius-navy);
 }
 
@@ -117,22 +116,10 @@ body {
   color: var(--white-color);
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background-color: darken(var(--primary-color), 10%);
-  border-color: darken(var(--primary-color), 10%);
-  color: var(--white-color);
-}
-
 /* Secondary button */
 .btn-secondary {
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
-  color: var(--white-color);
-}
-
-.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
-  background-color: darken(var(--secondary-color), 10%);
-  border-color: darken(var(--secondary-color), 10%);
   color: var(--white-color);
 }
 
@@ -143,22 +130,10 @@ body {
   color: var(--white-color);
 }
 
-.btn-success:hover, .btn-success:focus, .btn-success:active {
-  background-color: darken(var(--success-color), 10%);
-  border-color: darken(var(--success-color), 10%);
-  color: var(--white-color);
-}
-
 /* Danger button */
 .btn-danger {
   background-color: var(--danger-color);
   border-color: var(--danger-color);
-  color: var(--white-color);
-}
-
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
-  background-color: darken(var(--danger-color), 10%);
-  border-color: darken(var(--danger-color), 10%);
   color: var(--white-color);
 }
 
@@ -169,22 +144,10 @@ body {
   color: var(--black-color);
 }
 
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
-  background-color: darken(var(--warning-color), 10%);
-  border-color: darken(var(--warning-color), 10%);
-  color: var(--black-color);
-}
-
 /* Info button */
 .btn-info {
   background-color: var(--info-color);
   border-color: var(--info-color);
-  color: var(--white-color);
-}
-
-.btn-info:hover, .btn-info:focus, .btn-info:active {
-  background-color: darken(var(--info-color), 10%);
-  border-color: darken(var(--info-color), 10%);
   color: var(--white-color);
 }
 
@@ -195,22 +158,10 @@ body {
   color: var(--dark-color);
 }
 
-.btn-light:hover, .btn-light:focus, .btn-light:active {
-  background-color: darken(var(--light-color), 10%);
-  border-color: darken(var(--light-color), 10%);
-  color: var(--dark-color);
-}
-
 /* Dark button */
 .btn-dark {
   background-color: var(--dark-color);
   border-color: var(--dark-color);
-  color: var(--white-color);
-}
-
-.btn-dark:hover, .btn-dark:focus, .btn-dark:active {
-  background-color: darken(var(--dark-color), 10%);
-  border-color: darken(var(--dark-color), 10%);
   color: var(--white-color);
 }
 
@@ -220,19 +171,9 @@ body {
   border-color: var(--primary-color);
 }
 
-.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
-  background-color: var(--primary-color);
-  color: var(--white-color);
-}
-
 .btn-outline-secondary {
   color: var(--secondary-color);
   border-color: var(--secondary-color);
-}
-
-.btn-outline-secondary:hover, .btn-outline-secondary:focus, .btn-outline-secondary:active {
-  background-color: var(--secondary-color);
-  color: var(--white-color);
 }
 
 .btn-outline-success {
@@ -240,19 +181,9 @@ body {
   border-color: var(--success-color);
 }
 
-.btn-outline-success:hover, .btn-outline-success:focus, .btn-outline-success:active {
-  background-color: var(--success-color);
-  color: var(--white-color);
-}
-
 .btn-outline-danger {
   color: var(--danger-color);
   border-color: var(--danger-color);
-}
-
-.btn-outline-danger:hover, .btn-outline-danger:focus, .btn-outline-danger:active {
-  background-color: var(--danger-color);
-  color: var(--white-color);
 }
 
 .btn-outline-warning {
@@ -260,19 +191,9 @@ body {
   border-color: var(--warning-color);
 }
 
-.btn-outline-warning:hover, .btn-outline-warning:focus, .btn-outline-warning:active {
-  background-color: var(--warning-color);
-  color: var(--black-color);
-}
-
 .btn-outline-info {
   color: var(--info-color);
   border-color: var(--info-color);
-}
-
-.btn-outline-info:hover, .btn-outline-info:focus, .btn-outline-info:active {
-  background-color: var(--info-color);
-  color: var(--white-color);
 }
 
 .btn-outline-light {
@@ -280,19 +201,16 @@ body {
   border-color: var(--light-color);
 }
 
-.btn-outline-light:hover, .btn-outline-light:focus, .btn-outline-light:active {
-  background-color: var(--light-color);
-  color: var(--dark-color);
-}
-
 .btn-outline-dark {
   color: var(--dark-color);
   border-color: var(--dark-color);
 }
 
-.btn-outline-dark:hover, .btn-outline-dark:focus, .btn-outline-dark:active {
-  background-color: var(--dark-color);
-  color: var(--white-color);
+button.btn-outline-primary:hover {
+  /*background-color: black;*/
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
 }
 
 .table th, .table td {
@@ -468,3 +386,80 @@ footer a:hover {
   text-align: left;
 }
 
+.text-italic {
+  font-style: italic;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-mobius-grey {
+  color: #5c5c5c;
+}
+
+.bg-whitesmoke {
+  background-color: whitesmoke;
+}
+
+.text-whitesmoke {
+  color: whitesmoke;
+}
+
+
+/* drag and drop */
+
+.cdk-drag-preview {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.cdk-drag-placeholder {
+  background-color: #f0f0f0;
+  border: 2px dashed #ccc;
+  min-height: 40px;
+}
+
+
+.cdk-drag-handle {
+  cursor: move;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.table-hover tbody tr:hover {
+  color: #495057;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.input-no-border {
+  border: 0px;
+  background-color: red !important;
+  margin: 0px;
+}
+
+
+.toast-container {
+  z-index: 1055; /* Ensure it's above other content */
+}
+
+.actions{
+  width: 75px;
+  text-align: center;
+}

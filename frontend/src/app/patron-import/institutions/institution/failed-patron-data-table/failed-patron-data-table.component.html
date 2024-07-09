@@ -1,13 +1,17 @@
-<app-progress-bar [progress]="progress" *ngIf="!failedPatrons"></app-progress-bar>
+<app-page-loading *ngIf="!failedPatrons"></app-page-loading>
 <div class="row" *ngIf="failedPatrons">
   <div class="col-12">
 
-    <a href="/patron-import/institution/{{service.currentInstitutionId}}/jobs"
-       class="btn btn-sm btn-outline-dark m-2"><i class="fa fa-arrow-left"></i></a>
+    <a routerLink="/patron-import/institution/{{service.currentInstitutionId}}/jobs"
+       class="btn btn-sm btn-outline-dark m-2 pull-left"><i class="fa fa-arrow-left"></i></a>
 
-    <a href="{{service.rootPath}}/institution/{{service.currentInstitutionId}}/job/{{job_id}}/failed-patrons/download"
-       target="_blank"
-       class="btn btn-sm btn-outline-dark m-2 pull-right"><i class="fa fa-cloud-download"></i> Download CSV</a>
+    <h4 class="mt-2">Failed Patrons</h4>
+    Job: <span class="badge bg-dark-subtle text-dark">{{ job_id }}</span> - Total Failed Patrons: <span
+    class="badge bg-dark-subtle text-dark">{{ failedPatrons.length }}</span>
+    <a
+      href="{{service.rootPath}}/institution/{{service.currentInstitutionId}}/job/{{job_id}}/failed-patrons/download"
+      target="_blank"
+      class="btn btn-sm btn-outline-dark m-2 pull-right"><i class="fa fa-cloud-download"></i> Download CSV</a>
 
     <table class="table table-bordered table-hover spreadsheet-table" *ngIf="failedPatrons">
       <thead>
@@ -31,8 +35,9 @@
         <td>{{ patron.firstname }}</td>
         <td>{{ patron.lastname }}</td>
         <td>{{ patron.barcode }}</td>
-        <td><p class="not-a-tag" type="button" data-bs-toggle="modal" data-bs-target="#patronFolioCompareModal"
-               (click)="comparePatron(patron)">{{ patron.username }}</p></td>
+        <td>
+          <p class="not-a-tag" type="button" data-bs-toggle="modal" data-bs-target="#patronFolioCompareModal"
+             (click)="comparePatron(patron)">{{ patron.username }}</p></td>
         <td>{{ patron.externalsystemid }}</td>
         <td>{{ patron.errormessage }}</td>
       </tr>
@@ -41,44 +46,154 @@
   </div>
 </div>
 
-<!-- Patron-Folio-Compare-Modal -->
-<div *ngIf="patron" class="modal fade" id="patronFolioCompareModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<!--Patron-Folio-Compare-Modal-->
+<div class="modal fade" id="patronFolioCompareModal" tabindex="-1" aria-labelledby="patronFolioCompareModal"
      aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ patron.firstname }} {{ patron.lastname }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
-
         <div class="row">
 
-          <div class="col">
-            <div class="container mt-5">
-              <table class="table table-bordered table-hover spreadsheet-table">
-                <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Field</th>
-                  <th scope="col">Value</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let key of patronKeys">
-                  <td>{{ key }}</td>
-                  <td>{{ patron[key] }}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="col-4 right-divider">
+
+            <h5 class="text-center bg-whitesmoke p-2">MOBIUS Record</h5>
+            <table class="table table-bordered">
+              <tbody class="text-right">
+              <tr>
+                <th class="text-right" scope="row">username</th>
+                <td>{{ patron.username }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">externalsystemid</th>
+                <td>{{ patron.externalsystemid }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">barcode</th>
+                <td>{{ patron.barcode }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">lastname</th>
+                <td>{{ patron.lastname }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">firstname</th>
+                <td>{{ patron.firstname }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">middlename</th>
+                <td>{{ patron.middlename }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">email</th>
+                <td>{{ patron.email }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">patrongroup</th>
+                <td>{{ patron.patrongroup }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">active</th>
+                <td>{{ patron.active }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">ID</th>
+                <td>{{ patron.id }}</td>
+              </tr>
+              <tr>
+                <th class="text-right" scope="row">Patron file data</th>
+                <td>{{ patron.raw_data }}</td>
+              </tr>
+              </tbody>
+
+            </table>
+
           </div>
 
-          <div class="col"></div>
+          <!-- FOLIO -> lookup by username -->
+          <div class="col-4 right-divider">
+            <h5 class="text-center bg-whitesmoke p-2">FOLIO Record By Username</h5>
+            <table class="table table-bordered" *ngFor="let folioPatron of folioPatronsByUsername;">
+              <tbody class="text-left">
+              <tr>
+                <td>{{ folioPatron.username }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.externalSystemId }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.barcode }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.lastName }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.firstName }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.middleName }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.email }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.patronGroup }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.active }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.id }}</td>
+              </tr>
+              </tbody>
+            </table>
 
+          </div>
+
+          <div class="col-4">
+
+            <h5 class="text-center bg-whitesmoke p-2">FOLIO Record By ESID</h5>
+            <table class="table table-bordered" *ngFor="let folioPatron of folioPatronsByESID;">
+              <tbody class="text-left">
+              <tr>
+                <td>{{ folioPatron.username }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.externalSystemId }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.barcode }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.lastName }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.firstName }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.middleName }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.personal.email }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.patronGroup }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.active }}</td>
+              </tr>
+              <tr>
+                <td>{{ folioPatron.id }}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
 
         </div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

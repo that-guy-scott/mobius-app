@@ -14,10 +14,31 @@ Content-Type: application/json
 ###
 
 #app.get('/api/patron-import/institution/:id/job/:job_id/failed-patrons', db.getFailedUsersByInstitutionId);
-GET http://localhost:10000/api/patron-import/institution/14/job/68/failed-patrons
+GET http://localhost:10000/api/patron-import/institution/5/job/81/failed-patrons
 
 
 ### GET institution metrics
 GET http://localhost:10000/api/patron-import/institution/5/metrics
 
 
+### GET folio patron by username
+GET http://localhost:10000/api/folio/patron/by-username/A03132589ST
+
+
+
+### GET folio patron by esid
+GET http://localhost:10000/api/folio/patron/by-esid/A03132589ST
+
+### GET folio patron by esid
+GET http://localhost:10000/api/patron-import/file-trackers
+
+
+
+#'/api/patron-import/institution/:id/patron-groups/priorities
+### POST request to example server
+POST http://localhost:10000/api/patron-import/institution/1/patron-groups/priorities
+Content-Type: application/json
+
+{
+  "enabled": true
+}

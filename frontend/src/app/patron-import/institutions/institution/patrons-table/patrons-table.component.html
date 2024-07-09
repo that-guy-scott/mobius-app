@@ -1,4 +1,4 @@
-<app-progress-bar [progress]="progress" *ngIf="!patrons"></app-progress-bar>
+<app-page-loading *ngIf="!patrons"></app-page-loading>
 <table datatable class="dataTable table table-bordered table-hover spreadsheet-table" *ngIf="patrons">
     <thead>
     <tr>

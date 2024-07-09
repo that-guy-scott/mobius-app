@@ -15,6 +15,8 @@ import {
 import {FilePatternsComponent} from "./patron-import/institutions/institution/file-patterns/file-patterns.component";
 import {PatronsTableComponent} from "./patron-import/institutions/institution/patrons-table/patrons-table.component";
 import {MetricsComponent} from "./patron-import/institutions/institution/metrics/metrics.component";
+import {FileTrackerComponent} from "./patron-import/institutions/institution/file-tracker/file-tracker.component";
+import {FileTrackersComponent} from "./patron-import/file-trackers/file-trackers.component";
 
 const routes: Routes = [
   {
@@ -22,6 +24,9 @@ const routes: Routes = [
   },
   {
     path: 'patron-import/institutions', component: InstitutionsComponent,
+  },
+  {
+    path: 'patron-import/file-trackers', component: FileTrackersComponent,
   },
   {
     path: 'patron-import/institution/:id', component: InstitutionComponent,
@@ -32,6 +37,7 @@ const routes: Routes = [
       {path: 'job/:job_id/failed-patrons', component: FailedPatronDataTableComponent},
       {path: 'patrons', component: PatronsTableComponent},
       {path: 'file-patterns', component: FilePatternsComponent},
+      {path: 'file-tracker', component: FileTrackerComponent},
       {path: 'patron-groups', component: PtypePatronGroupsComponent}
     ]
   },

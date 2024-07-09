@@ -8,9 +8,10 @@
   </thead>
   <tbody>
   <tr *ngFor="let job of failedJobs; index as i">
-<!--    <td class="text-right">-->
-      <td class="text-right">
-      <a href="patron-import/institution/{{service.currentInstitutionId}}/job/{{job.job_id}}/failed-patrons">{{ job.job_id }}</a>
+    <td class="text-center">
+      <a routerLink="/patron-import/institution/{{service.currentInstitutionId}}/job/{{job.job_id}}/failed-patrons">
+        {{ job.job_id }}
+      </a>
     </td>
     <td class="text-center">{{ job.start_time | date:'medium' }}</td>
     <td class="text-center">{{ job.stop_time | date:'medium' }}</td>

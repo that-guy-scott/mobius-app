@@ -1,0 +1,20 @@
+<table class="table table-bordered table-hover spreadsheet-table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Job ID</th>
+    <th scope="col">Path</th>
+    <th scope="col">Size</th>
+    <th scope="col">Last Modified</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let file of fileTracker">
+    <td>{{ file.id }}</td>
+    <td>{{ file.job_id }}</td>
+    <td>{{ file.path }}</td>
+    <td>{{ file.size / 1000 | number : '1.1-1' }}kB</td>
+    <td>{{ file.lastmodified | date }}</td>
+  </tr>
+  </tbody>
+</table>

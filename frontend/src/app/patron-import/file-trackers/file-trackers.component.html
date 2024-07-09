@@ -1,0 +1,23 @@
+<table datatable [dtOptions]="dtOptions" class="dataTable table table-bordered table-hover spreadsheet-table"
+       *ngIf="fileTrackers">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Institution ID</th>
+    <th scope="col">Job ID</th>
+    <th scope="col">Path</th>
+    <th scope="col">Size</th>
+    <th scope="col">Last Modified</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of fileTrackers">
+    <td>{{ item.id }}</td>
+    <td>{{ item.institution_id }}</td>
+    <td>{{ item.job_id }}</td>
+    <td>{{ item.path }}</td>
+    <td>{{ item.size / 1000 | number : '1.1-1' }}kB</td>
+    <td>{{ item.lastmodified | date }}</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PatronLoadChartComponent } from './patron-load-chart.component';
+import { FileTrackerComponent } from './file-tracker.component';
 
-describe('PatronLoadChartComponent', () => {
-  let component: PatronLoadChartComponent;
-  let fixture: ComponentFixture<PatronLoadChartComponent>;
+describe('FileTrackerComponent', () => {
+  let component: FileTrackerComponent;
+  let fixture: ComponentFixture<FileTrackerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PatronLoadChartComponent]
+      declarations: [FileTrackerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PatronLoadChartComponent);
+    fixture = TestBed.createComponent(FileTrackerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
