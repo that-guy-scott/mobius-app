@@ -13,7 +13,7 @@ export class FileTrackersComponent implements OnInit {
 
   dtOptions: Config = {
     pageLength: 100,
-
+    order: [[0, 'desc']]
   };
 
   constructor(public service: PatronImportService) {

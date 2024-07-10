@@ -48,6 +48,11 @@ app.get('/api/patron-import/institution/:id/file-patterns', patronImport.getFile
 app.post('/api/patron-import/institution/:id/file-pattern', patronImport.setFilePatternByInstitutionId);
 app.post('/api/patron-import/institution/:id/file-pattern/delete', patronImport.deleteFilePatternByInstitutionId);
 
+
+// return this.http.get(`${this.rootPath}/file/${id}/download`, {responseType: 'blob'});
+app.get('/api/patron-import/file/:id/download', patronImport.getFileContentsByFileId);
+
+
 // return this.http.post(`${this.rootPath}/institution/${id}/file-pattern/delete`, filePattern);
 
 app.get('/api/patron-import/institution/:id/file-tracker', patronImport.getFileTrackersByInstitutionId);

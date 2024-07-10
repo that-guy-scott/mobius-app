@@ -136,4 +136,5 @@ export class PatronImportService {
     let json = {id: filePatternId};
     return this.http.post(`${this.rootPath}/institution/${id}/file-pattern/delete`, json);
   }
+
 }

@@ -288,7 +288,8 @@ const getFileTrackersByInstitutionId = (request, response) => {
                        ft.institution_id,
                        ft.path,
                        ft.size,
-                       to_timestamp(ft.lastmodified) as lastmodified
+                       to_timestamp(ft.lastmodified) as lastmodified,
+                       COALESCE(ft.contents IS NOT NULL, FALSE) AS contents
                 FROM patron_import.file_tracker ft
                 where ft.institution_id = $1
                 order by ft.job_id desc`, [id],
@@ -300,6 +301,43 @@ const getFileTrackersByInstitutionId = (request, response) => {
         });
 
 };
+
+const getFileContentsByFileId = (request, response) => {
+
+    const file_id = parseInt(request.params.id);
+
+    pool.query(`select ft.path,
+                       ft.contents,
+                       TO_CHAR(TO_TIMESTAMP(ft.lastmodified), 'MM_DD_YYYY') AS lastmodified
+                from patron_import.file_tracker ft
+                where ft.id = $1;`, [file_id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+
+        const path = results.rows[0].path;
+        const lastmodified = results.rows[0].lastmodified;
+
+        let filename = path.split('/').pop();
+
+        // if there is a file extension, add the lastmodified date to the filename before the extension
+        if (filename.includes('.')) {
+            const filenameParts = filename.split('.');
+            const extension = filenameParts.pop();
+            const name = filenameParts.join('.');
+            filename = `${name}_${lastmodified}.${extension}`;
+        } else {
+            filename = `${filename}_${lastmodified}`;
+        }
+
+        response.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        response.header('Content-Type', 'text/plain');
+        response.send(results.rows[0].contents);
+
+
+    });
+};
+
 
 const setEmailSuccessByInstitutionId = (request, response) => {
 
@@ -327,15 +365,18 @@ const getFileTrackers = (request, response) => {
                        ft.institution_id,
                        ft.path,
                        ft.size,
-                       to_timestamp(ft.lastmodified) as lastmodified
+                       to_timestamp(ft.lastmodified)            AS lastmodified,
+                       COALESCE(ft.contents IS NOT NULL, FALSE) AS contents
                 FROM patron_import.file_tracker ft
-                order by ft.job_id desc`,
+                ORDER BY ft.id DESC;`,
         (error, results) => {
             if (error) {
                 throw error;
             }
             response.status(200).json(results.rows);
         });
+
+
 
 };
 
@@ -537,5 +578,6 @@ module.exports = {
     getFileTrackers,
     setEmailSuccessByInstitutionId,
     setFilePatternByInstitutionId,
-    deleteFilePatternByInstitutionId
+    deleteFilePatternByInstitutionId,
+    getFileContentsByFileId
 };

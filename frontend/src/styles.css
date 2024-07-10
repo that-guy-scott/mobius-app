@@ -459,7 +459,7 @@ footer a:hover {
   z-index: 1055; /* Ensure it's above other content */
 }
 
-.actions{
+.actions {
   width: 75px;
   text-align: center;
 }

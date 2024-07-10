@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Toast} from 'bootstrap';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +10,8 @@ export class AppService {
 
   createToastMessage(message: string, type: string) {
 
-    // text-mobius-navy
     // Create the outer div for the toast
     const toastDiv = document.createElement('div');
-    // toastDiv.classList.add('toast', 'align-items-center', `text-bg-${type}`, 'border-0');
     toastDiv.classList.add('toast', 'align-items-center', `text-bg-mobius-${type}`, 'border-0');
     toastDiv.setAttribute('role', 'alert');
     toastDiv.setAttribute('aria-live', 'assertive');
@@ -53,8 +50,12 @@ export class AppService {
     }
 
     // Initialize and show the toast using Bootstrap's toast JavaScript plugin
-    const toast = new Toast(toastDiv);
+
+    // @ts-ignore
+    const toast = bootstrap.Toast.getOrCreateInstance(toastDiv);
     toast.show();
+
   }
+
 
 }
