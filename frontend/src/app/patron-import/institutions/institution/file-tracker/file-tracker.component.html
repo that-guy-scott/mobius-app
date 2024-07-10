@@ -18,9 +18,11 @@
     <td>{{ file.size / 1000 | number : '1.1-1' }}kB</td>
     <td>{{ file.lastmodified | date }}</td>
     <td class="actions">
-      <a *ngIf="file.contents" href="{{service.rootPath}}/file/{{ file.id }}/download" target="_blank" class="btn btn-sm btn-outline-info">
+
+      <a *ngIf="file.contents" href="{{service.rootPath}}/file/{{ file.id }}/download" target="_blank" class="text-dark">
         <i class="fa fa-download"></i>
       </a>
+
     </td>
   </tr>
   </tbody>

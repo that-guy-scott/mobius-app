@@ -11,7 +11,6 @@ export class PatronImportService {
 
   private _institutions: any;
   rootPath: string = 'http://localhost:10000/api/patron-import';
-  // rootPath: string = 'http://192.168.11.203:10000/api/patron-import';
   // rootPath: string = 'http://192.168.11.211:10000/api/patron-import';
 
   currentInstitutionId: number = 0;
