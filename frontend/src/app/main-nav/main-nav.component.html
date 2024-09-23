@@ -11,16 +11,15 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <!-- Add a standard link -->
-<!--      <li class="nav-item"><a class="nav-link" href="/patron-import/institutions" >Patron Importer</a></li>-->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="patron-import-menu-link" role="button"
            data-bs-toggle="dropdown" aria-expanded="false">
           Patron Import
         </a>
         <ul class="dropdown-menu" aria-labelledby="patron-import-menu-link">
-          <li><a class="dropdown-item" href="/patron-import/institutions">Institutions</a></li>
-          <li><a class="dropdown-item" href="/patron-import/file-trackers">File Tracker</a></li>
-<!--          <li><a class="dropdown-item" href="#">Reports</a></li>-->
+          <li><a class="dropdown-item" routerLink="/patron-import/file-trackers">File Tracker</a></li>
+          <li><a class="dropdown-item" routerLink="/patron-import/institutions">Institutions</a></li>
+          <!--          <li><a class="dropdown-item" href="#">Reports</a></li>-->
         </ul>
       </li>
       <li class="nav-item dropdown">

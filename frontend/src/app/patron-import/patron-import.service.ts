@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {AppService} from "../app.service";
 import {Observable} from "rxjs";
 import {PatronGroup} from "./institutions/institution/ptype-patron-groups/patron-group";
+import _default from "chart.js/dist/plugins/plugin.tooltip";
+import numbers = _default.defaults.animations.numbers;
 
 @Injectable({
   providedIn: 'root'
@@ -74,7 +76,7 @@ export class PatronImportService {
     return this.http.get(`${this.rootPath}/folio/patron/by-esid/${esid}`);
   }
 
-  getFilePatternsByInstitutionId(id: number) {
+  getFilePatternsByInstitutionId(id: number | null) {
     return this.http.get(`${this.rootPath}/institution/${id}/file-patterns`);
   }
 
@@ -134,6 +136,18 @@ export class PatronImportService {
   deleteFilePatternById(filePatternId: any, id: number) {
     let json = {id: filePatternId};
     return this.http.post(`${this.rootPath}/institution/${id}/file-pattern/delete`, json);
+  }
+
+
+  importPatronsByInstitutionId(id: number) {
+
+    console.log('sending patrons! institution_id:[' + id + ']');
+
+    let json = {id: this.currentInstitutionId};
+    return this.http.post(`${this.rootPath}/institution/${id}/import/process`, json).subscribe((json) => {
+      this.app.createToastMessage('Patrons are being imported!', 'success');
+    });
+
   }
 
 }

@@ -1,3 +1,27 @@
 th {
   text-align: right;
 }
+
+.file-path {
+  color: grey;
+}
+
+
+.copy-icon {
+  cursor: pointer;
+  margin-left: 8px;
+  background: none;
+  border: none;
+  color: grey;
+}
+
+
+.copied {
+  color: grey;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+}

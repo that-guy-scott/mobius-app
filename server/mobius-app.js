@@ -48,19 +48,16 @@ app.get('/api/patron-import/institution/:id/file-patterns', patronImport.getFile
 app.post('/api/patron-import/institution/:id/file-pattern', patronImport.setFilePatternByInstitutionId);
 app.post('/api/patron-import/institution/:id/file-pattern/delete', patronImport.deleteFilePatternByInstitutionId);
 
-
-// return this.http.get(`${this.rootPath}/file/${id}/download`, {responseType: 'blob'});
 app.get('/api/patron-import/file/:id/download', patronImport.getFileContentsByFileId);
-
-
-// return this.http.post(`${this.rootPath}/institution/${id}/file-pattern/delete`, filePattern);
-
 app.get('/api/patron-import/institution/:id/file-tracker', patronImport.getFileTrackersByInstitutionId);
 
 app.get('/api/patron-import/institution/:id/patron-groups', patronImport.getPatronGroupsByInstitutionId);
 app.post('/api/patron-import/institution/:id/patron-group', patronImport.setPatronGroupByInstitutionId);
 app.post('/api/patron-import/institution/:id/patron-group/delete', patronImport.deletePatronGroupByInstitutionId);
 app.post('/api/patron-import/institution/:id/patron-groups/priorities', patronImport.setPatronGroupsPriorityByInstitutionId);
+
+app.post('/api/patron-import/institution/:id/patron-file/upload', patronImport.uploadPatronFileByInstitutionId);
+app.post('/api/patron-import/institution/:id/import/process', patronImport.processImportByInstitutionId);
 
 app.get('/api/patron-import/patron/by-username/:username', patronImport.getPatronByUsername);
 
@@ -73,9 +70,9 @@ app.get('/api/patron-import/folio/patron/by-esid/:esid', patronImport.getFolioPa
 
 app.get('/api/patron-import/file-trackers', patronImport.getFileTrackers);
 
-// system level api calls.
-app.get('/api/system/whoami', patronImport.systemWhoAmI);
-app.get('/api/system/pwd', patronImport.pwd);
+// system level api calls. These are test.
+// app.get('/api/system/whoami', patronImport.systemWhoAmI);
+// app.get('/api/system/pwd', patronImport.pwd);
 
 
 app.listen(port, () => {

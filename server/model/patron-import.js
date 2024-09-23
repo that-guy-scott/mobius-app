@@ -1,4 +1,9 @@
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 const Pool = require('pg').Pool;
+
+const BASE_UPLOAD_DIR = path.join(__dirname, 'uploads');
 // const pool = new Pool({
 //     user: 'foliopatronimport',
 //     host: '192.168.11.211',
@@ -6,6 +11,7 @@ const Pool = require('pg').Pool;
 //     password: 'WNM6ymdkngzhv_dep',
 //     port: 5432,
 // });
+
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -288,11 +294,14 @@ const getFileTrackersByInstitutionId = (request, response) => {
                        ft.institution_id,
                        ft.path,
                        ft.size,
-                       to_timestamp(ft.lastmodified) as lastmodified,
+                       to_timestamp(ft.lastmodified)            as lastmodified,
+                       job.stop_time,
                        COALESCE(ft.contents IS NOT NULL, FALSE) AS contents
                 FROM patron_import.file_tracker ft
+                         join patron_import.job job on job.id = ft.job_id
                 where ft.institution_id = $1
-                order by ft.job_id desc`, [id],
+                order by ft.id desc;
+        `, [id],
         (error, results) => {
             if (error) {
                 throw error;
@@ -338,7 +347,6 @@ const getFileContentsByFileId = (request, response) => {
     });
 };
 
-
 const setEmailSuccessByInstitutionId = (request, response) => {
 
     const id = parseInt(request.params.id);
@@ -366,8 +374,10 @@ const getFileTrackers = (request, response) => {
                        ft.path,
                        ft.size,
                        to_timestamp(ft.lastmodified)            AS lastmodified,
+                       job.stop_time,
                        COALESCE(ft.contents IS NOT NULL, FALSE) AS contents
                 FROM patron_import.file_tracker ft
+                         join patron_import.job job on job.id = ft.job_id
                 ORDER BY ft.id DESC;`,
         (error, results) => {
             if (error) {
@@ -375,7 +385,6 @@ const getFileTrackers = (request, response) => {
             }
             response.status(200).json(results.rows);
         });
-
 
 
 };
@@ -465,6 +474,72 @@ const deleteFilePatternByInstitutionId = (request, response) => {
     );
 }
 
+const getFullPathByInstitutionId = (id) => {
+    return new Promise((resolve, reject) => {
+        let query = `
+            SELECT f.path || '/patron-import/' || i.abbreviation || '/import' AS full_path
+            FROM patron_import.institution i
+                     JOIN patron_import.institution_folder_map ifm ON i.id = ifm.institution_id
+                     JOIN patron_import.folder f ON ifm.folder_id = f.id
+            WHERE i.id = $1;`;
+
+        pool.query(query, [id], (error, results) => {
+            if (error) {
+                reject(error);
+            } else if (results.rows.length === 0) {
+                reject(new Error('No results found for the given institution ID'));
+            } else {
+                resolve(results.rows[0].full_path);
+            }
+        });
+    });
+};
+
+const uploadPatronFileByInstitutionId = async (request, response) => {
+    const id = parseInt(request.params.id);
+    console.log('Uploading file for institution ID:', id);
+
+    try {
+        const full_path = await getFullPathByInstitutionId(id);
+
+        // Configure multer for file upload
+        const storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                const uploadPath = full_path; // This line is now fixed
+                console.log('Upload path:', uploadPath);
+                fs.mkdirSync(uploadPath, {recursive: true});
+                cb(null, uploadPath);
+            },
+            filename: (req, file, cb) => {
+                console.log('Generated filename:', file.originalname);
+                cb(null, file.originalname);
+            }
+        });
+
+        const upload = multer({storage: storage}).single('file');
+        console.log('Multer configured');
+
+        upload(request, response, (err) => {
+            console.log('Upload started');
+            if (err) {
+                console.error('Upload error:', err);
+                return response.status(500).json({error: 'File upload failed', details: err.message});
+            }
+
+            if (!request.file) {
+                console.log('No file uploaded');
+                return response.status(400).json({error: 'No file uploaded'});
+            }
+
+            console.log('File uploaded successfully');
+            response.status(200).json({message: 'File uploaded successfully'});
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        response.status(500).json({error: 'Internal Server Error', details: error.message});
+    }
+};
+
 const getPatrons = (request, response) => {
 
     const id = parseInt(request.params.id);
@@ -483,9 +558,11 @@ const getPatrons = (request, response) => {
 
 };
 
+
 const {exec} = require('child_process');
 
 // !!!! PLEASE NOTE !!!!
+// I think this could be done via a REST API call to the folio server instead of a system call.
 // You have to symlink the patron-data-to-folio-import/ in the server/ directory in the angular app.
 // patron-data-to-folio-import/api.pl --config=patron-data-to-folio-import/patron-import.conf --getFolioUserByUsername=
 
@@ -543,6 +620,34 @@ const getFolioPatronGroupsByInstitutionId = (request, response) => {
     executeCommandJSON(command, response);
 };
 
+/*
+    We process all the patron files for an institution.
+    Sometimes they upload the file and then send us a ticket asking to process the file.
+    So the import button needs to be more than a file upload.
+*/
+const processImportByInstitutionId = (request, response) => {
+
+    const id = parseInt(request.params.id);
+    console.log('I see your importing some patrons for #' + id);
+
+    // Send an immediate response to the client.
+    response.status(202).send({message: 'Processing started for institution ID ' + id});
+
+    const command = 'patron-data-to-folio-import/api.pl --config=patron-data-to-folio-import/patron-import.conf --processInstitutionId=' + id;
+
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error executing command: ${error}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`Command stderr: ${stderr}`);
+        }
+        console.log(`Command stdout: ${stdout}`);
+    });
+
+}
+
 const systemWhoAmI = (request, response) => {
     const command = 'whoami';
     executeCommand(command, response);
@@ -579,5 +684,7 @@ module.exports = {
     setEmailSuccessByInstitutionId,
     setFilePatternByInstitutionId,
     deleteFilePatternByInstitutionId,
-    getFileContentsByFileId
+    getFileContentsByFileId,
+    uploadPatronFileByInstitutionId,
+    processImportByInstitutionId
 };

@@ -22,6 +22,8 @@ import {PageLoadingComponent} from './page-loading/page-loading.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {FileTrackerComponent} from './patron-import/institutions/institution/file-tracker/file-tracker.component';
 import {FileTrackersComponent} from './patron-import/file-trackers/file-trackers.component';
+import { PatronFileDropzoneComponent } from './patron-import/institutions/institution/patron-file-dropzone/patron-file-dropzone.component';
+import {ClipboardModule} from "@angular/cdk/clipboard";
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import {FileTrackersComponent} from './patron-import/file-trackers/file-trackers
     PageLoadingComponent,
     FileTrackerComponent,
     FileTrackersComponent,
+    PatronFileDropzoneComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import {FileTrackersComponent} from './patron-import/file-trackers/file-trackers
     ReactiveFormsModule,
     FormsModule,
     DataTablesModule,
-    DragDropModule
+    DragDropModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

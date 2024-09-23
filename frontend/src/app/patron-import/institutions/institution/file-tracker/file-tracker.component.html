@@ -1,3 +1,4 @@
+<app-page-loading *ngIf="!fileTracker"></app-page-loading>
 <table class="table table-bordered table-hover spreadsheet-table">
   <thead class="thead-dark">
   <tr>
@@ -6,6 +7,7 @@
     <th scope="col">Path</th>
     <th scope="col">Size</th>
     <th scope="col">Last Modified</th>
+    <th scope="col">Last Run Time</th>
     <th scope="col">Actions</th>
 
   </tr>
@@ -16,13 +18,14 @@
     <td>{{ file.job_id }}</td>
     <td>{{ file.path }}</td>
     <td>{{ file.size / 1000 | number : '1.1-1' }}kB</td>
-    <td>{{ file.lastmodified | date }}</td>
+    <td>{{ file.lastmodified | date : 'medium' }}</td>
+    <td>{{ file.stop_time | date : 'medium' }}</td>
     <td class="actions">
-
-      <a *ngIf="file.contents" href="{{service.rootPath}}/file/{{ file.id }}/download" target="_blank" class="text-dark">
+      <a *ngIf="file.contents" href="{{service.rootPath}}/file/{{ file.id }}/download" target="_blank"
+         class="text-dark">
         <i class="fa fa-download"></i>
       </a>
-
+      <p *ngIf="!file.contents" class="text-bold text-danger text-opacity-75"><i class="fa fa-times"></i></p>
     </td>
   </tr>
   </tbody>

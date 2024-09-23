@@ -43,6 +43,11 @@ main {
   color: white;
 }
 
+.btn-primary:hover {
+  background-color: #05787d;
+  border-color: #05787d;
+}
+
 .text-bg-mobius-success {
   background-color: var(--mobius-teal) !important;
   color: white;
@@ -472,3 +477,18 @@ footer a:hover {
   border-color: var(--mobius-teal);
   box-shadow: inset 0 1px 1px rgba(0, 160, 166, 0.075), 0 0 8px rgba(0, 160, 166, 0.3);
 }
+
+.dropzone {
+  border: 2px dashed lightgrey;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  height: 200px;
+  color: lightgrey;
+}
+
+.dropzone .dz-message .dz-button {
+  font-size: 1.5em;
+}
+

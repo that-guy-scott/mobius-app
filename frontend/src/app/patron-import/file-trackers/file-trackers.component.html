@@ -8,21 +8,26 @@
     <th scope="col">Path</th>
     <th scope="col">Size</th>
     <th scope="col">Last Modified</th>
+    <th scope="col">Last Run Time</th>
     <th scope="col">Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let item of fileTrackers">
     <td>{{ item.id }}</td>
-    <td>{{ item.institution_id }}</td>
-    <td>{{ item.job_id }}</td>
-    <td>{{ item.path }}</td>
-    <td>{{ item.size / 1000 | number : '1.1-1' }}kB</td>
-    <td>{{ item.lastmodified | date }}</td>
+<!--    http://localhost:4200/patron-import/institution/15/metrics-->
+    <td class="text-center"><a routerLink="/patron-import/institution/{{ item.institution_id }}/metrics">{{ item.institution_id }}</a></td>
+    <td class="text-center">{{ item.job_id }}</td>
+    <td class="text-center path">{{ item.path }}</td>
+    <td class="text-center">{{ item.size / 1000 | number : '1.1-1' }}kB</td>
+    <td class="text-center dates">{{ item.lastmodified | date : 'medium' }}</td>
+    <td class="text-center dates">{{ item.stop_time | date : 'medium' }}</td>
     <td class="actions text-center">
-      <a *ngIf="item.contents" href="{{service.rootPath}}/file/{{ item.id }}/download" target="_blank" class="text-dark">
+      <a *ngIf="item.contents" href="{{service.rootPath}}/file/{{ item.id }}/download" target="_blank"
+         class="text-dark">
         <i class="fa fa-download"></i>
       </a>
+      <p *ngIf="!item.contents" class="text-bold text-danger text-opacity-75"><i class="fa fa-times"></i></p>
     </td>
   </tr>
   </tbody>

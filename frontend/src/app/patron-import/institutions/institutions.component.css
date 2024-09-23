@@ -1,0 +1,11 @@
+.title {
+  /*color: white;*/
+  /*background-color: var(--mobius-teal);*/
+  padding: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: -10px;
+  text-align: center;
+  color: #343a40;
+  background-color: #f1f1f1;
+}
