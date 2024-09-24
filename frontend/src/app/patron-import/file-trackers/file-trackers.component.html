@@ -15,7 +15,6 @@
   <tbody>
   <tr *ngFor="let item of fileTrackers">
     <td>{{ item.id }}</td>
-<!--    http://localhost:4200/patron-import/institution/15/metrics-->
     <td class="text-center"><a routerLink="/patron-import/institution/{{ item.institution_id }}/metrics">{{ item.institution_id }}</a></td>
     <td class="text-center">{{ item.job_id }}</td>
     <td class="text-center path">{{ item.path }}</td>

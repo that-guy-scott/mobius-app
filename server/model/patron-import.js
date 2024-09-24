@@ -658,6 +658,24 @@ const pwd = (request, response) => {
     executeCommand(command, response);
 };
 
+//===========================================================================
+
+const processImportByInstitutionId = (request, response) => {
+
+    const id = parseInt(request.params.id);
+    console.log('I see your importing some patrons for #' + id);
+
+    // Send an immediate response to the client.
+    response.status(202).send({message: 'Processing started for institution ID ' + id});
+
+    const command = 'patron-data-to-folio-import/api.pl --config=patron-data-to-folio-import/patron-import.conf --processInstitutionId=' + id;
+
+    executeCommand(command, response);
+
+}
+
+//===========================================================================
+
 module.exports = {
     systemWhoAmI,
     pwd,
