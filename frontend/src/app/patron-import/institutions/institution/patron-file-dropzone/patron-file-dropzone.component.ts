@@ -37,4 +37,5 @@ export class PatronFileDropzoneComponent implements OnInit {
     console.log("File upload response:", response);
 
   }
+
 }

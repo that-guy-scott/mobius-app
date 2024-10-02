@@ -1,5 +1,5 @@
 const express = require('express');
-const patronImport = require('./model/patron-import');
+const patronImport = require('./patron-import');
 const cors = require('cors');
 
 // https://www.npmjs.com/package/axios
@@ -57,7 +57,7 @@ app.post('/api/patron-import/institution/:id/patron-group/delete', patronImport.
 app.post('/api/patron-import/institution/:id/patron-groups/priorities', patronImport.setPatronGroupsPriorityByInstitutionId);
 
 app.post('/api/patron-import/institution/:id/patron-file/upload', patronImport.uploadPatronFileByInstitutionId);
-app.post('/api/patron-import/institution/:id/import/process', patronImport.processImportByInstitutionId);
+app.get('/api/patron-import/institution/:id/patron-files/process', patronImport.processImportByInstitutionId);
 
 app.get('/api/patron-import/patron/by-username/:username', patronImport.getPatronByUsername);
 
@@ -70,9 +70,13 @@ app.get('/api/patron-import/folio/patron/by-esid/:esid', patronImport.getFolioPa
 
 app.get('/api/patron-import/file-trackers', patronImport.getFileTrackers);
 
-// system level api calls. These are test.
+// === sandbox stuff
+app.get('/api/patron-import/ping', patronImport.ping);
 // app.get('/api/system/whoami', patronImport.systemWhoAmI);
 // app.get('/api/system/pwd', patronImport.pwd);
+
+
+
 
 
 app.listen(port, () => {

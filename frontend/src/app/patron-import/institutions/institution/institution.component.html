@@ -2,10 +2,9 @@
 <div class="container-fluid mt-5" *ngIf="institution">
 
   <h4><strong>{{ institution.name }}</strong></h4>
-
   <div class="row">
 
-    <div class="col-8">
+    <div class="col-12">
       <table class="table table-bordered">
         <tbody>
         <tr>
@@ -67,15 +66,6 @@
       </table>
     </div>
 
-    <div class="col-4">
-      <app-patron-file-dropzone></app-patron-file-dropzone>
-
-      <div class="mt-2 pull-right">
-        <button class="btn btn-primary" (click)="service.importPatronsByInstitutionId(id)">Import</button>
-      </div>
-
-    </div>
-
   </div>
 
   <!-- TABS -->
@@ -124,6 +114,13 @@
              routerLinkActive="active"
              routerLink="/patron-import/institution/{{institution.id}}/patron-groups"
              data-bs-target="#institution-tab-pane" type="button" role="tab">Patron Groups</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab"
+             routerLinkActive="active"
+             routerLink="/patron-import/institution/{{institution.id}}/patron-file-upload"
+             data-bs-target="#institution-tab-pane" type="button" role="tab">Patron Upload</a>
         </li>
 
       </ul>

@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PatronImportService} from "../../patron-import.service";
 import {ActivatedRoute} from "@angular/router";
 import {switchMap} from 'rxjs/operators';
 import {PageLoadingComponent} from "../../../page-loading/page-loading.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-institution',
@@ -16,6 +17,7 @@ export class InstitutionComponent implements OnInit {
   institution: any;
   fullPath: any;
   showCopied: boolean = false;
+
 
   constructor(public service: PatronImportService, public route: ActivatedRoute) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -53,7 +55,6 @@ export class InstitutionComponent implements OnInit {
     }, 2000);
 
   }
-
 
 
 }

@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const Pool = require('pg').Pool;
+const { spawn, exec } = require('child_process');
+const { promisify } = require('util');
 
 const BASE_UPLOAD_DIR = path.join(__dirname, 'uploads');
 // const pool = new Pool({
@@ -538,6 +540,7 @@ const uploadPatronFileByInstitutionId = async (request, response) => {
         console.error('Error:', error);
         response.status(500).json({error: 'Internal Server Error', details: error.message});
     }
+
 };
 
 const getPatrons = (request, response) => {
@@ -558,8 +561,6 @@ const getPatrons = (request, response) => {
 
 };
 
-
-const {exec} = require('child_process');
 
 // !!!! PLEASE NOTE !!!!
 // I think this could be done via a REST API call to the folio server instead of a system call.
@@ -620,33 +621,122 @@ const getFolioPatronGroupsByInstitutionId = (request, response) => {
     executeCommandJSON(command, response);
 };
 
-/*
-    We process all the patron files for an institution.
-    Sometimes they upload the file and then send us a ticket asking to process the file.
-    So the import button needs to be more than a file upload.
-*/
-const processImportByInstitutionId = (request, response) => {
+const processImportByInstitutionIdOLD = (request, response) => {
 
     const id = parseInt(request.params.id);
-    console.log('I see your importing some patrons for #' + id);
+    const institutionId = parseInt(request.query.institution_id);
 
-    // Send an immediate response to the client.
-    response.status(202).send({message: 'Processing started for institution ID ' + id});
+    console.log('I see your importing some patrons for #' + institutionId);
 
-    const command = 'patron-data-to-folio-import/api.pl --config=patron-data-to-folio-import/patron-import.conf --processInstitutionId=' + id;
-
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error executing command: ${error}`);
-            return;
-        }
-        if (stderr) {
-            console.error(`Command stderr: ${stderr}`);
-        }
-        console.log(`Command stdout: ${stdout}`);
-    });
+    // const command = 'patron-data-to-folio-import/api.pl --config=patron-data-to-folio-import/patron-import.conf --processInstitutionId=' + id;
+    const command = 'patron-data-to-folio-import/api.pl';
+    const args = ['--config=patron-data-to-folio-import/patron-import.conf', '--processInstitutionId=' + institutionId];
+    executeCommandStream(command, args, response);
 
 }
+
+// =========== Data Streams =================================================
+
+const ping = (request, response) => {
+    const command = 'ping';
+    const args = ['google.com', '-c', '10'];  // Limit to 4 pings for example
+    executeCommandStream(command, args, response);
+};
+
+const executeCommandStreamOLD = (command, args, response) => {
+    console.log(`Executing command: ${command} ${args.join(' ')}`);
+
+    response.setHeader('Content-Type', 'text/event-stream');
+    response.setHeader('Cache-Control', 'no-cache');
+    response.setHeader('Connection', 'keep-alive');
+
+    const child = spawn(command, args);
+
+    child.stdout.on('data', (data) => {
+        console.log(`Sending data: ${data}`);
+        response.write(`data: ${data}\n\n`);
+    });
+
+    child.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`);
+        response.write(`data: error: ${data}\n\n`);
+    });
+
+    child.on('close', (code) => {
+        console.log(`Child process exited with code ${code}`);
+        response.write(`data: Command completed with code ${code}\n\n`);
+        response.end();
+    });
+
+    response.on('close', () => {
+        console.log('Connection closed');
+        child.kill();
+    });
+};
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+const processImportByInstitutionId = (request, response) => {
+    const id = parseInt(request.params.id, 10);
+    const institutionId = parseInt(request.query.institution_id, 10);
+
+    if (isNaN(id) || isNaN(institutionId)) {
+        response.status(400).send('Invalid ID or Institution ID');
+        return;
+    }
+
+    console.log(`I see you're importing some patrons for #${institutionId}`);
+
+    const command = 'patron-data-to-folio-import/api.pl';
+    const args = [
+        '--config=patron-data-to-folio-import/patron-import.conf',
+        `--processInstitutionId=${institutionId}`,
+    ];
+
+    executeCommandStream(command, args, response);
+};
+
+const executeCommandStream = (command, args, response) => {
+    console.log(`Executing command: ${command} ${args.join(' ')}`);
+
+    response.setHeader('Content-Type', 'text/event-stream');
+    response.setHeader('Cache-Control', 'no-cache');
+    response.setHeader('Connection', 'keep-alive');
+
+    const child = spawn(command, args);
+
+    child.stdout.on('data', (data) => {
+        const message = data.toString();
+        console.log(`Sending data: ${message}`);
+        response.write(`data: ${message}\n\n`);
+    });
+
+    child.stderr.on('data', (data) => {
+        const error = data.toString();
+        console.error(`stderr: ${error}`);
+        response.write(`data: error: ${error}\n\n`);
+    });
+
+    child.on('error', (err) => {
+        console.error(`Failed to start subprocess: ${err}`);
+        response.write(`data: error: ${err.message}\n\n`);
+        response.end();
+    });
+
+    child.on('close', (code) => {
+        console.log(`Child process exited with code ${code}`);
+        response.write(`data: Command completed with code ${code}\n\n`);
+        response.end();
+    });
+
+    response.on('close', () => {
+        console.log('Connection closed');
+        child.kill();
+    });
+};
+
+
+
+// =========== END Data Streams =============================================
 
 const systemWhoAmI = (request, response) => {
     const command = 'whoami';
@@ -657,24 +747,6 @@ const pwd = (request, response) => {
     const command = 'pwd';
     executeCommand(command, response);
 };
-
-//===========================================================================
-
-const processImportByInstitutionId = (request, response) => {
-
-    const id = parseInt(request.params.id);
-    console.log('I see your importing some patrons for #' + id);
-
-    // Send an immediate response to the client.
-    response.status(202).send({message: 'Processing started for institution ID ' + id});
-
-    const command = 'patron-data-to-folio-import/api.pl --config=patron-data-to-folio-import/patron-import.conf --processInstitutionId=' + id;
-
-    executeCommand(command, response);
-
-}
-
-//===========================================================================
 
 module.exports = {
     systemWhoAmI,
@@ -704,5 +776,6 @@ module.exports = {
     deleteFilePatternByInstitutionId,
     getFileContentsByFileId,
     uploadPatronFileByInstitutionId,
-    processImportByInstitutionId
+    processImportByInstitutionId,
+    ping
 };

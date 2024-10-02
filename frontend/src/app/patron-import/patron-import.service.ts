@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AppService} from "../app.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription, throwError} from "rxjs";
 import {PatronGroup} from "./institutions/institution/ptype-patron-groups/patron-group";
-import _default from "chart.js/dist/plugins/plugin.tooltip";
-import numbers = _default.defaults.animations.numbers;
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +18,32 @@ export class PatronImportService {
 
   constructor(private app: AppService, private http: HttpClient) {
   }
+
+  getStream(url: string): Observable<string> {
+    return new Observable<string>(observer => {
+      const eventSource = new EventSource(url);
+
+      eventSource.onmessage = event => {
+        observer.next(event.data);
+      };
+
+      eventSource.onerror = event => {
+        observer.error(new Error('EventSource encountered an error.'));
+        eventSource.close();
+      };
+
+      return () => {
+        eventSource.close();
+      };
+    });
+  }
+
+
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    return throwError(() => new Error('An error occurred while streaming data'));
+  }
+
 
   loadInstitutions() {
     this.http.get(`${this.rootPath}/institutions`).subscribe((json) => {

@@ -24,6 +24,7 @@ import {FileTrackerComponent} from './patron-import/institutions/institution/fil
 import {FileTrackersComponent} from './patron-import/file-trackers/file-trackers.component';
 import { PatronFileDropzoneComponent } from './patron-import/institutions/institution/patron-file-dropzone/patron-file-dropzone.component';
 import {ClipboardModule} from "@angular/cdk/clipboard";
+import { PatronFileUploadComponent } from './patron-import/institutions/institution/patron-file-upload/patron-file-upload.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
     PageLoadingComponent,
     FileTrackerComponent,
     FileTrackersComponent,
-    PatronFileDropzoneComponent
+    PatronFileDropzoneComponent,
+    PatronFileUploadComponent
   ],
   imports: [
     BrowserModule,
